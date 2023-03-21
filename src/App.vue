@@ -8,10 +8,10 @@
 </template>
 
 <script>
-import chat from './components/chat/chat.vue'
-import navbar from './components/navbar/navbar.vue'
-import conversation from './components/conversation/conversation.vue'
-import statut from './components/statut/statut.vue'
+//import chat from './components/chat/chat.vue'
+//import navbar from './components/navbar/navbar.vue'
+//import conversation from './components/conversation/conversation.vue'
+//import statut from './components/statut/statut.vue'
 
 export default {
   name: 'App',
