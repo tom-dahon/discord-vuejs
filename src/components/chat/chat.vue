@@ -1,6 +1,5 @@
 <template>
-  <div class="chat col-7">
-  <p>pp</p>
+  <div class="chat d-flex">
   </div>
 </template>
 
@@ -13,6 +12,9 @@ export default {
 
 <style>
 .chat {
-    background-color:#313338;
-  }
+    flex-direction: column;
+    background-color: #353a3f;
+    height: 100vh;
+    flex: 1;
+}
 </style>

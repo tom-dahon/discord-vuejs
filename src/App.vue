@@ -1,36 +1,29 @@
 <template>
-    <div class="row align-items-start">
-      <navbar></navbar>
-      <conversation></conversation>
-      <chat></chat>
-      <statut></statut>
-    </div>
+  <body class="d-flex">
+    <server></server>
+    <sidebar></sidebar>
+    <chat></chat>
+  </body>
 </template>
 
 <script>
 import chat from './components/chat/chat.vue'
-import navbar from './components/navbar/navbar.vue'
-import conversation from './components/conversation/conversation.vue'
-import statut from './components/statut/statut.vue'
+import server from './components/server/server.vue'
+import sidebar from './components/sidebar/sidebar.vue'
 
 export default {
   name: 'App',
   components: {
-    navbar,
-    conversation,
+    server,
+    sidebar,
     chat,
-    statut,
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #1F1F1F;
-  margin-top: 60px;
+body{
+  font-family: sans-serif;
+  overflow: hidden;
 }
 </style>
