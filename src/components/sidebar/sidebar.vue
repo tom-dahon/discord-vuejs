@@ -4,16 +4,16 @@
       <input type="text" class="form-control border-0 mt-1 text-bg-dark" placeholder="Rechercher/Lancer une conversation" aria-describedby="inputGroup-sizing-sm">
     </div>
     <div class="sidebar__icon">
-      <font-awesome-icon class="awesomeFake ms-2" icon="fa-solid fa-user" />
-      <span>Amis</span>
+      <font-awesome-icon size="lg" class="awesomeFake ms-2" icon="fa-solid fa-user" />
+      <span class="ms-3">Amis</span>
     </div>
     <div class="sidebar__icon">
-      <font-awesome-icon class="awesomeFake ms-2" icon="fa-solid fa-envelope" />
-      <span>Demandes de message</span>
+      <font-awesome-icon size="lg" class="awesomeFake ms-2" icon="fa-solid fa-envelope" />
+      <span class="ms-3">Demandes de message</span>
     </div>
-    <div class="sidebar_users">
-      <span class="me-6">MESSAGES PRIVÉS</span>
-      <font-awesome-icon class="awesome" icon="fa-solid fa-plus" />
+    <div class="sidebar_users d-flex me-1 ms-3">
+      <span class="messagePrive">MESSAGES PRIVÉS</span>
+      <font-awesome-icon size="sm" class="awesome pt-1" icon="fa-solid fa-plus" />
     </div>
   </div>
 </template>
@@ -54,8 +54,10 @@ export default {
     opacity: 1;
   }
   .sidebar__icon > span {
-    margin-left: 10px;
     font-weight: 600;
+  }
+  .sidebar_users{
+    justify-content: space-between;
   }
 
 
