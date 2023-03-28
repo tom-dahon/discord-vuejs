@@ -7,10 +7,10 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 /* import font awesome icon component */
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 /* import specific icons */
-import { faEnvelope, faUser,faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faEnvelope, faUser,faPlus, faGear, faHeadphones, faMicrophone, faCirclePlus } from '@fortawesome/free-solid-svg-icons'
 import router from '@/router';
 
-library.add(faUser,faEnvelope,faPlus)
+library.add(faUser,faEnvelope,faPlus,faHeadphones,faGear,faMicrophone,faCirclePlus)
 
 
 
