@@ -1,11 +1,8 @@
 <template>
-  <div class="chat">
+  <div class="chat d-flex justify-content-between">
     <div class="chat__input d-flex">
-
-      <font-awesome-icon class="plusInput fa-2xl p-2" size="lg" icon="fa-solid fa-circle-plus" />
-      <input type="text" class="form-control" placeholder="Envoyer un message à " >
-
-
+      <font-awesome-icon class="plusInput fa-2xl p-1" size="lg" icon="fa-solid fa-circle-plus" />
+      <input type="text" class="d-flex ms-2" placeholder="Envoyer un message à " >
     </div>
   </div>
 </template>
@@ -40,15 +37,17 @@ export default {
     background-color: #383A40;
     color: lightgray;
 }
-.form-control{
-  background-color : #383A40!important; 
-  cursor: pointer;
-  border: 0px solid;
 
-}
 textarea:focus, input:focus{
     outline: none;
 }
 
+input{
+  width:100%;
+  border:none;
+  outline-width: 0;
+  background-color : #383A40!important; 
+  cursor: pointer;
+}
 
 </style>
