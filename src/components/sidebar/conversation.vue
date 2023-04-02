@@ -1,5 +1,5 @@
 <template>
-  <div class="sidebar__user"></div>
+  <div class="sidebar__user d-flex"></div>
 </template>
 
 <script>
@@ -10,7 +10,6 @@ name:"conversation",
 
 <style>
 .sidebar__user {
-    display: flex;
     padding: 5px;
     align-items: center;
     background-color: #2f3135;

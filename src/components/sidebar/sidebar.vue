@@ -1,7 +1,7 @@
 <template>
-  <div class="sidebar d-flex justify-content-between">
+  <div class="sidebar d-flex h-1 justify-content-between">
     <div class="input-group input-group-sm mt-1 p-2 ">
-      <input type="text" class="form-control border-0 mt-1 text-bg-dark" placeholder="Rechercher/Lancer une conversation" aria-describedby="inputGroup-sizing-sm">
+      <input type="text" class="form-control border-0  text-bg-dark" placeholder="Rechercher/Lancer une conversation" aria-describedby="inputGroup-sizing-sm">
     </div>
     <div class="sidebar__icon">
       <font-awesome-icon size="lg" class="awesomeFake ms-2" icon="fa-solid fa-user" />
@@ -57,7 +57,6 @@ export default {
     flex-direction: column;
     row-gap: 20px;
     width: 250px;
-    height: 100vh;
     background-color: #2f3135;
     color: gray;
     
@@ -65,6 +64,8 @@ export default {
   .input-group {
     border-bottom: 2px solid #26282c;
   }
+
+  /* Fake menu */
   .sidebar__icon {
     padding: 10px;
     cursor: pointer;
