@@ -41,13 +41,11 @@
 
 <script>
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import {conversation} from './conversation.vue';
 
 export default {
     name: "sidebar",
     components: { 
       FontAwesomeIcon,
-      conversation,
     }
 }
 </script>
@@ -94,8 +92,8 @@ export default {
   }
 
   .sidebar__profile > div > img {
-    height: 60px;
-    width: 60px;
+    height: 45px;
+    width: 45px;
     margin: 5px;
   }
 
