@@ -8,7 +8,7 @@
         </div>
         <div class="endDiv">
           <button id="newChannel" type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            <font-awesome-icon class="color fa-ms m-1" size="lg" icon="fa-solid fa-user-plus" />
+            <font-awesome-icon class="color fa-ms m-1 mt-2" size="lg" icon="fa-solid fa-user-plus" />
           </button>
           <button id="logout" type="button" class="btn btn-dark btn-sm mr-5">Déconnexion</button>
         </div>
@@ -54,6 +54,10 @@ textarea:focus, input:focus{
 
 .chatHeader{
   border-bottom: black;
+}
+
+.btn:hover{
+  border:none;
 }
 
 .chat__messages{

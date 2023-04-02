@@ -1,7 +1,7 @@
 <template>
   <div class="sidebar d-flex h-1 justify-content-between">
     <div class="input-group input-group-sm mt-1 p-2 ">
-      <input type="text" class="form-control border-0  text-bg-dark" placeholder="Rechercher/Lancer une conversation" aria-describedby="inputGroup-sizing-sm">
+      <input type="text" class="form-control border-0 text-bg-dark" placeholder="Rechercher/Lancer une conversation" aria-describedby="inputGroup-sizing-sm">
     </div>
     <div class="sidebar__icon">
       <font-awesome-icon size="lg" class="awesomeFake ms-2" icon="fa-solid fa-user" />
@@ -94,9 +94,9 @@ export default {
   }
 
   .sidebar__profile > div > img {
-      height: 40px;
-      width: 40px;
-      margin: 0;
+    height: 60px;
+    width: 60px;
+    margin: 5px;
   }
 
 
