@@ -4,6 +4,7 @@
 fonctionnalités :
 - Login, Signup
 * Add conversation
++ Send messages
 
 ### Built With
 Nodejs - Javascript - Html - Css
