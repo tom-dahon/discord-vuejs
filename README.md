@@ -1,14 +1,12 @@
 <a name="discord-vuejs"></a>
 
 ## ABOUT THE PROJECT
-Application en java/javaFX ayant comme fonctionnalités :
-- Création d'une salle
-* Réservation
-+ modification
-* ajout d'une salle
+fonctionnalités :
+- Login, Signup
+* Add conversation
 
 ### Built With
-JAVA - JAVAFX
+Nodejs - Javascript - Html - Css
 
 <p align="center">
   <img src="./images/1.png" width="500" title="hover text">
