@@ -9,15 +9,34 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 /* import specific icons */
 import { faEnvelope, faUser,faPlus, faGear, faHeadphones, faMicrophone, faCirclePlus,faUserPlus, faAt } from '@fortawesome/free-solid-svg-icons'
 import router from '@/router';
-
+import { createStore } from 'vuex'
 library.add(faUser,faEnvelope,faPlus,faHeadphones,faGear,faMicrophone,faCirclePlus,faUserPlus,faAt)
 
 
 
+const store = createStore({
+    state () {
+      return {
+        token: ''
+      }
+    },
+    mutations: {
+      setToken (state, token) {
+        state.token = token
+      }
+    },
+    getters: {
+      getToken(state) {
+        return state.token
+      }
+    }
+
+})
+
 const app = createApp(App);
 
 app.use(router)
+app.use(store)
 app.mount('#app')
 
-Home
-.component('font-awesome-icon', FontAwesomeIcon)
+//Home.component('font-awesome-icon', FontAwesomeIcon)
