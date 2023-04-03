@@ -23,8 +23,8 @@
             <button @click="signUp()" class="btn text-white mb-1">Inscription</button>
            
     
-          <div id="email_error" class="alert alert-danger d-none" role="alert">
-            Le format de l'email est incorrect
+            <div id="form_error" class="alert alert-danger d-none" role="alert">
+            Les informations saisies sont incorrectes/vides
           </div>  
 
           <a href="/signin" class="text-secondary">Tu as déjà un compte ?</a>
@@ -35,7 +35,8 @@
 </template>
 
 <script setup>
-  import store from '../store'
+  import store from '../../store'
+  import router from '../../router'
 
   async function signUp() {
     const data = { "email": email.value, "username": username.value, "password": password.value, "roleId": 1 };
@@ -54,8 +55,10 @@
         if(res.status == 200) {
           let infos = await res.json();
           store.commit('setToken', infos.accessToken)
+          router.push('/chat')
+        } else if(res.status == 422) {
+          form_error.classList.remove("d-none")
         }
-        console.log(store.state.token)
       }
       
 
@@ -63,7 +66,7 @@
 
 <style>
 body {
-    background-image: url("../assets/signup-background.jpg");
+    background-image: url("../../assets/signup-background.jpg");
     height: 100vh;
 }
 
@@ -72,7 +75,7 @@ body {
 }
 
 button {
-    background-color: #6E89E0 !important;
+    background-color: #5865F2 !important;
 }
 
 .bg-image{

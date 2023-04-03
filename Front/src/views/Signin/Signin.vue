@@ -50,7 +50,6 @@
         if(res.status == 200) {
           let infos = await res.json();
         store.commit('setToken', infos.accessToken)
-        console.log(store.state.token)
         router.push('/chat')
         } else if(res.status == 404) {
           form_error.classList.remove("d-none")
@@ -68,7 +67,7 @@ body {
     background-color: #343A3F;
 }
 button {
-    background-color: #6E89E0 !important;
+    background-color: #5865F2 !important;
 }
 .bg-image{
   background-size: cover;
