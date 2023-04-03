@@ -14,29 +14,13 @@ library.add(faUser,faEnvelope,faPlus,faHeadphones,faGear,faMicrophone,faCirclePl
 
 
 
-const store = createStore({
-    state () {
-      return {
-        token: ''
-      }
-    },
-    mutations: {
-      setToken (state, token) {
-        state.token = token
-      }
-    },
-    getters: {
-      getToken(state) {
-        return state.token
-      }
-    }
-
-})
+import store from './store'
 
 const app = createApp(App);
 
-app.use(router)
 app.use(store)
+app.use(router)
+
 app.mount('#app')
 
 //Home.component('font-awesome-icon', FontAwesomeIcon)

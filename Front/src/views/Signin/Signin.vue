@@ -13,6 +13,7 @@
             <div class="form-outline mb-4">
               <label class="form-label text-light" for="password">Mot de passe</label>
               <input v-model="password" name="password" type="password" id="password" class="text-white form-control" />
+              
             </div>
 
             <button @click="signIn()" class="btn text-light btn-block mb-1">Connexion</button>
@@ -28,13 +29,11 @@
 </template>
 
 <script setup>
-  import { useStore } from 'vuex'
-
-  const store = useStore()
-  let token = 'dsdsqdq';
-  store.commit('setToken', token)
+  import store from '../../store'
+  import router from '../../router'
 
   async function signIn() {
+    const form_error = document.getElementById('form_error')
     const data = { "username": username.value,"password": password.value };
     var headers = new Headers();
     headers.append("Content-Type","application/json");
@@ -50,13 +49,13 @@
         });
         if(res.status == 200) {
           let infos = await res.json();
-        console.log(infos.accessToken)
-        //window.location.replace('../home/index.html');
+        store.commit('setToken', infos.accessToken)
+        console.log(store.state.token)
+        router.push('/chat')
+        } else if(res.status == 404) {
+          form_error.classList.remove("d-none")
         }
-        
   }
-
-  console.log(store.state.token)
 
 </script>
 
