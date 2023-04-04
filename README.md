@@ -1,4 +1,6 @@
 <a name="discord-vuejs"></a>
+OLLIER Benjamin
+DAHON TOM
 
 ## ABOUT THE PROJECT
 fonctionnalités :
