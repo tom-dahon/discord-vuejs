@@ -21,7 +21,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // database
 const db = require("./app/Back/models");
-const Role = db.role;
+//const Role = db.role;
 
 db.sequelize.sync();
 // force: true will drop the table if it already exists
@@ -45,7 +45,7 @@ require('./app/Back/routes/message.routes')(app);
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
-  Role.truncate();
+  /*Role.truncate();
   Role.create({
     name: "invite"
   });
@@ -56,6 +56,6 @@ app.listen(PORT, () => {
   
   Role.create({
     name: "admin"
-  })
+  }) */
 });
 

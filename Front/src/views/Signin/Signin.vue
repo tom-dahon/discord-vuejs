@@ -51,7 +51,7 @@
           let infos = await res.json();
         store.commit('setToken', infos.accessToken)
         router.push('/chat')
-        } else if(res.status == 404) {
+        } else if(res.status == 404 || res.status == 401) {
           form_error.classList.remove("d-none")
         }
   }
