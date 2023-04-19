@@ -32,21 +32,56 @@
           </div>
           <div class="sidebar__profileIcons position-relative">
             <font-awesome-icon class="p-2" size="lg" icon="fa-solid fa-microphone" />          
-            <font-awesome-icon class="p-2" size="lg" icon="fa-solid fa-headphones" />     
-            <font-awesome-icon class="p-2" size="lg" icon="fa-solid fa-gear" />
+            <font-awesome-icon class="p-2" size="lg" icon="fa-solid fa-headphones" />   
+
+            <span type="button" class="spmodal btn-primary" data-bs-toggle="modal" data-bs-target="#setting">
+              <font-awesome-icon class="p-2" size="lg" icon="fa-solid fa-gear" />
+            </span>
           </div>
+    </div>
+  </div>
+  
+    <!-- Modal Boostrap -->
+  <div class="modal fade" id="setting" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Réglages</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <h2>Renommer le compte</h2>
+            <input type="text" class="form-control" aria-label="Text input with dropdown button" placeholder="Pseudo">
+          </div>
+          <div class="modal-body">
+            <h2>Photo de profil</h2>
+            <input type="text" class="form-control" aria-label="Text input with dropdown button" placeholder="Pseudo">
+          </div>
+          <div class="modal-footer d-flex">
+            <button type="button" class="btn btn-danger">Supprimer le compte</button>
+            <button id="createChannelButton" type="button" class="btn btn-primary" data-bs-dismiss="modal">Valider</button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import settingPopup from './settingPopup.vue';
 
 export default {
     name: "sidebar",
     components: { 
       FontAwesomeIcon,
-    }
+      settingPopup,
+    },
+    data(){
+    return {
+      isHidden: false,
+        }
+      },
+    methods:{}
 }
 </script>
 
@@ -97,7 +132,8 @@ export default {
     margin: 5px;
   }
 
-
-
-
+  /* Popup */
+  .button{
+  background-color:red;
+}
 </style>

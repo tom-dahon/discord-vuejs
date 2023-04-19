@@ -22,17 +22,17 @@ const router = createRouter({
   ]
 })
 
-router.beforeEach((to, from, next) => {
-  console.log(store.state.token)
-  const publicPages = ['/signin', '/signup'];
-  const authRequired = !publicPages.includes(to.path);
-  const loggedIn = store.state.token
+// router.beforeEach((to, from, next) => {
+//   console.log(store.state.token)
+//   const publicPages = ['/signin', '/signup'];
+//   const authRequired = !publicPages.includes(to.path);
+//   const loggedIn = store.state.token
 
-  if (authRequired && !loggedIn) {
-    next('/signin');
-  } else {
-    next();
-  }
-});
+//   if (authRequired && !loggedIn) {
+//     next('/signin');
+//   } else {
+//     next();
+//   }
+// });
 
 export default router;
