@@ -13,8 +13,12 @@
             </div>
             <div class="modal-body">
               <h2>Photo de profil</h2>
-              <input type="text" class="form-control" aria-label="Text input with dropdown button" placeholder="Pseudo">
+              <div class="custom-file">
+                <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+              </div>
             </div>
+            
             <div class="modal-footer d-flex">
               <button type="button" class="button btn">Supprimer le compte</button>
               <button id="createChannelButton" type="button" class="btn btn-primary" data-bs-dismiss="modal">Valider</button>

@@ -101,13 +101,13 @@ export default {
   /* Fake menu */
   .sidebar__icon {
     padding: 10px;
-    cursor: pointer;
+    /* cursor: pointer; */
   }
-  .sidebar__icon:hover {
+  /* .sidebar__icon:hover {
     color: #fff;
     background-color: #40464b;
     cursor: pointer;
-  }
+  } */
   input {
     color: #1c87c9;
     opacity: 1;

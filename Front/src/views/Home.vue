@@ -1,8 +1,8 @@
 <template>
-  <body class="d-flex">
-    <server></server>
-    <sidebar></sidebar>
-    <chat></chat>
+  <body class="d-flex bd-highlight">
+    <server class=""></server>
+    <sidebar class=""></sidebar>
+    <chat class=""></chat>
   </body>
 </template>
 
