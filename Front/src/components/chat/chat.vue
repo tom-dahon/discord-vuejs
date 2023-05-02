@@ -10,7 +10,7 @@
           <button @click="visible = !visible" id="newChannel" type="button" class="btn m-2 btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
             <font-awesome-icon class="color" size="sm" icon="fa-solid fa-user-plus" />
           </button>
-          <button id="logout" type="button" class="btn btn-dark btn-sm mr-5">Déconnexion</button>
+          <button @click="logout()" id="logout" type="button" class="btn btn-dark btn-sm mr-5">Déconnexion</button>
         </div>
       </div>
       
@@ -54,6 +54,7 @@
 <script>
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import popupConv from './popupConv.vue';
+import { channelService } from '../../api/channel.service'
 
 export default {
   name: "chat",
@@ -64,9 +65,21 @@ export default {
   data(){
   return {
             visible: false,
+            channelListe: null,
         }
       },
-  methods:{}
+  methods:{
+    getChannel: function () {
+      getAllChannels()
+    },
+    logout(){
+            accountService.logout()
+            this.$router.push('/')
+        }
+  },
+  created () {
+    this.getAllChannels();
+  }
 }
 
 

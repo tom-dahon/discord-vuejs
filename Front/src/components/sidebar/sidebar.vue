@@ -17,7 +17,12 @@
             <span class="messagePrive">MESSAGES PRIVÉS</span>
         
             <font-awesome-icon class="ms-5" size="md" icon="fa-solid fa-plus"/>
-        </div>
+          </div>
+
+          <div class="sidebar__icon">
+            <font-awesome-icon size="lg" class="awesomeFake ms-2" icon="fa-solid fa-envelope" />
+            <span class="ms-3">conv message</span>
+          </div>
       </div>
     </div>
     

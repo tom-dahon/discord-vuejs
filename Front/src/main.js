@@ -17,10 +17,8 @@ library.add(faUser,faEnvelope,faPlus,faHeadphones,faGear,faMicrophone,faCirclePl
 import store from './store'
 
 const app = createApp(App);
-
 app.use(store)
 app.use(router)
-
 app.mount('#app')
 
 //Home.component('font-awesome-icon', FontAwesomeIcon)
