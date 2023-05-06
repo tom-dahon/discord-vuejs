@@ -54,10 +54,10 @@
 <script>
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import popupConv from './popupConv.vue';
-import { channelService } from '../../api/channel.service'
+import { getChannels } from '../../api/caller.service'
 
-export default {
-  name: "chat",
+export default{
+  name: "Chat",
   components: { 
     FontAwesomeIcon,
     popupConv,
@@ -69,16 +69,16 @@ export default {
         }
       },
   methods:{
-    getChannel: function () {
-      getAllChannels()
-    },
-    logout(){
-            accountService.logout()
-            this.$router.push('/')
-        }
   },
   created () {
-    this.getAllChannels();
+    console.log(localStorage.getItem('token')),
+    getChannels()
+      .then(users => {
+        this.users = users;
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 }
 

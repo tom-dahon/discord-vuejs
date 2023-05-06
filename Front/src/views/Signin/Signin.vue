@@ -28,33 +28,27 @@
 </body>
 </template>
 
-<script setup>
+<script>
   import store from '../../store'
   import router from '../../router'
-
-  async function signIn() {
-    const form_error = document.getElementById('form_error')
-    const data = { "username": username.value,"password": password.value };
-    var headers = new Headers();
-    headers.append("Content-Type","application/json");
-    var requestOptions = {
-        method: 'POST',
-        headers: headers,
-        body: JSON.stringify(data),
-      };
-      
-    let res = await fetch('http://localhost:8080/api/auth/signin',requestOptions)
-        .catch(err =>{
-          console.log(err);
-        });
-        if(res.status == 200) {
-          let infos = await res.json();
-        store.commit('setToken', infos.accessToken)
-        router.push('/chat')
-        } else if(res.status == 404 || res.status == 401) {
-          form_error.classList.remove("d-none")
+  import { getConnexion } from '@/api/caller.service';
+  export default {
+  methods: {
+    handleSubmit() {
+      const userData = { "username": username.value,"password": password.value };
+    },
+    getConnexion(userData)
+      .then(data => {
+        if (data.status == 200) {
+          localStorage.setItem('token', "data");
+          router.push('/chat');
         }
-  }
+      }),
+      .catch(error => {
+        console.log(error);
+      }),
+    },
+  };
 
 </script>
 

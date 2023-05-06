@@ -2,41 +2,29 @@ import Axios from 'axios';
 import { createStore } from "vuex";
 import store from "@/store";
 import router from '@/router';
-import {accountService} from './account.service';
 
-Axios.interceptors.request.use(request => {
-    
-  // Si connecté on ajoute le token dans l'entête
-  if(accountService.isLogged()){
-      request.headers.Authorization = 'Bearer '+ accountService.getToken()
+const apiService = Axios.create({
+  baseURL: 'localhost:8083/api',
+  headers: {
+    'Content-Type': 'application/json',
+    'x-access-token': localStorage.getItem('token')
   }
+});
+//User
+export const getConnexion = (userData) => {
+  const requestBody = {
+    username: userData.username,
+    password: userData.password
+  };
 
-  return request
-})
+  return apiService.post('/users', requestBody)
+    .then(response => response.data);
+};
 
-Axios.interceptors.response.use(response => {
-  return response
-}, error => {
-  console.log(error)
-
-
-  if(!error.response){
-      // Erreur rzo
-      console.log("error.response")
-      // store.commit('displayNotif', {d: true, mes: error})
-      return Promise.reject(error)
-  // }else{
-  //     if(error.response.status == 401){
-  //         accountService.logout()
-  //         router.push('/signin')
-  //     }else{
-  //         // Erreur de l'API
-  //         store.commit('displayNotif', {d: true, mes: error.response.data.message})
-  //         return Promise.reject(error)
-  //     }
-  // 
-  }
-  })
-
+//Channels
+export const getChannels = () => {
+  return apiService.get('/channels')
+    .then(response => response.data);
+};
 
 export default Axios

@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory} from 'vue-router';
 import Home from '../views/Home.vue';
+import Chat from '../components/chat/chat.vue';
 import Signin from '../views/Signin/Signin.vue';
 import Signup from '../views/Signup/Signup.vue';
 import store from '../store'
@@ -9,7 +10,7 @@ const router = createRouter({
   routes: [
     { 
       path: '/chat', 
-      component: Home 
+      component: Chat 
     },
     {
       path: '/signin',
