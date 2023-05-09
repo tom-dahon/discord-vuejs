@@ -1,5 +1,7 @@
 <template>
   <div class="sidebar d-flex h-1 justify-content-between">
+    <div v-if="alerte" id="alerte" class="alert alert-danger position-absolute top-50 start-50 translate-middle" role="alert">
+    </div>
     <div class="input-group input-group-sm mt-1 p-2 ">
       <input type="text" class="form-control border-0 text-bg-dark" placeholder="Rechercher/Lancer une conversation" aria-describedby="inputGroup-sizing-sm">
     </div>
@@ -73,6 +75,7 @@
 
 <script>
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { getChannels } from '@/api/caller.service';
 //import settingPopup from './settingPopup.vue';
 
 export default {
@@ -83,9 +86,29 @@ export default {
     data(){
     return {
       isHidden: false,
+      alerte: false,
         }
       },
-    methods:{}
+    methods:{
+      showAlerte(mess){
+        document.getElementById("alerte").innerHTML = mess;
+        setTimeout(() => {
+          this.alerte = true;
+        }, 1000);
+    },
+    },
+    mounted(){
+      getChannels()
+      .then(data => {
+            if (data.data.status == 200) {
+              console.log(data.data)
+             }
+          })
+          .catch(error => {
+            this.showAlerte(data.data.status)
+            console.log(error);
+          });
+    },
 }
 </script>
 

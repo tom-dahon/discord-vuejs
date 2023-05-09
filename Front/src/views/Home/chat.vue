@@ -1,6 +1,8 @@
 <template>
   <sidebar/>
   <div class="chat d-flex flex-column flex-grow-1 bd-highlight">
+    <div v-if="alerte" id="alerte" class="alert alert-danger" role="alert">
+    </div>
 
       <div class="chatHeader d-flex justify-content-between">
         <div class="chatHeader__left d-flex">
@@ -14,7 +16,6 @@
           <button @click="logout()" id="logout" type="button" class="btn btn-dark btn-sm mr-5">Déconnexion</button>
         </div>
       </div>
-      
       
       <div class="d-flex flex-grow-1 bd-highlight">
         <div class="chat d-flex flex-grow-1 flex-column">
@@ -70,31 +71,26 @@ export default{
   return {
             visible: false,
             channelListe: null,
+            alerte: false
         }
       },
   methods:{
-    channels(){ 
-      getChannels()
-          .then(data => {
-            if (data.status == 200) {
-              console.log(data.data)
-              }
-          })
-          .catch(error => {
-            console.log(error);
-          })
-        }
+    showAlerte(mess){
+      this.alerte = true;
+      document.getElementById("alerte").innerHTML = mess;
+    },
   },
   created () {
-    console.log(localStorage.getItem('token')),
-    getChannels()
-      .then(users => {
-        this.users = users;
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }
+      // getChannels()
+      //     .then(data => {
+      //       if (data.status == 200) {
+      //         console.log(data.data)
+      //         }
+      //     })
+      //     .catch(error => {
+      //       console.log(error);
+      //     })
+        }
 }
 
 
