@@ -1,9 +1,6 @@
 <template>
   <sidebar/>
   <div class="chat d-flex flex-column flex-grow-1 bd-highlight">
-    <div v-if="alerte" id="alerte" class="alert alert-danger" role="alert">
-    </div>
-
       <div class="chatHeader d-flex justify-content-between">
         <div class="chatHeader__left d-flex">
           <font-awesome-icon class="color fa-xl ms-3 mt-3" size="lg" color="grey"  icon="fa-solid fa-at" />
@@ -191,7 +188,5 @@ input{
   margin-left: 8%;
   height:33px;
 }
-
-
 
 </style>

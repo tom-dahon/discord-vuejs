@@ -1,7 +1,5 @@
 <template>
   <div class="sidebar d-flex h-1 justify-content-between">
-    <div v-if="alerte" id="alerte" class="alert alert-danger position-absolute top-50 start-50 translate-middle" role="alert">
-    </div>
     <div class="input-group input-group-sm mt-1 p-2 ">
       <input type="text" class="form-control border-0 text-bg-dark" placeholder="Rechercher/Lancer une conversation" aria-describedby="inputGroup-sizing-sm">
     </div>
@@ -71,31 +69,36 @@
       </div>
     </div>
   </div>
+  <popupErreur mess="" v-if="alerte"/>
 </template>
 
 <script>
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { getChannels } from '@/api/caller.service';
+import popupErreur from '@/components/chat/popupErreur.vue';
 //import settingPopup from './settingPopup.vue';
 
 export default {
     name: "sidebar",
     components: { 
       FontAwesomeIcon,
+      popupErreur,
     },
     data(){
     return {
       isHidden: false,
-      alerte: false,
+      alerte: true,
+      message: "",
         }
       },
     methods:{
-      showAlerte(mess){
-        document.getElementById("alerte").innerHTML = mess;
-        setTimeout(() => {
-          this.alerte = true;
-        }, 1000);
-    },
+    //   showAlerte(mess){
+    //     this.popupErreur.showAlerte()
+    //     document.getElementById("alerte").innerHTML = mess;
+    //     setTimeout(() => {
+    //       this.alerte = true;
+    //     }, 1000);
+    // },
     },
     mounted(){
       getChannels()
@@ -104,8 +107,10 @@ export default {
               console.log(data.data)
              }
           })
-          .catch(error => {
-            this.showAlerte(data.data.status)
+      .catch(error => {
+            //this.alerte = true;
+            this.popupErreur.changeProps("tatata")
+            this.message = "Erreur lors de la récupération des channels";
             console.log(error);
           });
     },

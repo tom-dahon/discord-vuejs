@@ -18,7 +18,7 @@ axiosIntance.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token');
     if (token) {
-      config.headers['x-access-token'] = `${token}`;
+      config.headers['x-access-token'] = `${3456789}`;
     }
     return config;
   },
