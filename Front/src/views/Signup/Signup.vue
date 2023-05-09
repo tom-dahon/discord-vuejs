@@ -34,34 +34,12 @@
 </body>
 </template>
 
-<script setup>
+<script>
   import store from '../../store'
   import router from '../../router'
-
-  async function signUp() {
-    const data = { "email": email.value, "username": username.value, "password": password.value, "roleId": 1 };
-    var headers = new Headers();
-    headers.append("Content-Type","application/json");
-    var requestOptions = {
-        method: 'POST',
-        headers: headers,
-        body: JSON.stringify(data),
-      };
-      
-    let res = await fetch('http://localhost:8080/api/auth/signup',requestOptions)
-        .catch(err =>{
-          console.log(err);
-        });
-        if(res.status == 200) {
-          let infos = await res.json();
-          store.commit('setToken', infos.accessToken)
-          router.push('/chat')
-        } else if(res.status == 422) {
-          form_error.classList.remove("d-none")
-        }
-      }
-      
-
+  export default {
+  methods: {}}
+  
 </script>
 
 <style>

@@ -1,3 +1,4 @@
+<!--Possible delete-->
 <template>
     <!-- Modal Boostrap -->
     <div class="modal fade" id="setting" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

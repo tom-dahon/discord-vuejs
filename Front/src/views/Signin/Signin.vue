@@ -16,7 +16,7 @@
               
             </div>
 
-            <button @click="signIn()" class="btn text-light btn-block mb-1">Connexion</button>
+            <button @click="handleSubmit" class="btn text-light btn-block mb-1">Connexion</button>
             <h6 class="text-white pt-2">Pas de compte ? <a href="/signup">Inscription</a></h6>
     
           <div id="form_error" class="alert alert-danger d-none" role="alert">
@@ -31,25 +31,41 @@
 <script>
   import store from '../../store'
   import router from '../../router'
-  import { getConnexion } from '@/api/caller.service';
+  import { getConnexion} from '../../api/caller.service'
   export default {
   methods: {
-    handleSubmit() {
-      const userData = { "username": username.value,"password": password.value };
-    },
-    getConnexion(userData)
-      .then(data => {
-        if (data.status == 200) {
-          localStorage.setItem('token', "data");
-          router.push('/chat');
-        }
-      }),
-      .catch(error => {
-        console.log(error);
-      }),
-    },
-  };
+      handleSubmit() {
+        const userData = { "username": username.value,"password": password.value };
+        console.log(userData.password,userData.username);
 
+        getConnexion(userData)
+        .then(data => {
+          if (data.status == 200) {
+          localStorage.setItem('token', data.data.token);
+          router.push('/chat');
+            }
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
+  }
+};
+  // handleSubmit() {
+  //     const userData = { "username": username.value,"password": password.value };
+  //   },
+  //   getConnnexion(userData)
+  //     .then(data => {
+  //       if (data.status == 200) {
+  //         localStorage.setItem('token', "data");
+  //         router.push('/chat');
+  //       }
+  //     }),
+  //     .catch(error => {
+  //       console.log(error);
+  //     }),
+  //   },
+  // }
 </script>
 
 <style>

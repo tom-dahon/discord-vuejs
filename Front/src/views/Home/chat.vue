@@ -1,4 +1,5 @@
 <template>
+  <sidebar/>
   <div class="chat d-flex flex-column flex-grow-1 bd-highlight">
 
       <div class="chatHeader d-flex justify-content-between">
@@ -13,6 +14,7 @@
           <button @click="logout()" id="logout" type="button" class="btn btn-dark btn-sm mr-5">Déconnexion</button>
         </div>
       </div>
+      
       
       <div class="d-flex flex-grow-1 bd-highlight">
         <div class="chat d-flex flex-grow-1 flex-column">
@@ -53,14 +55,16 @@
 
 <script>
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import popupConv from './popupConv.vue';
-import { getChannels } from '../../api/caller.service'
+import popupConv from '../../components/chat/popupConv.vue';
+import sidebar from './sidebar.vue';
+import { getChannels } from '../../api/caller.service';
 
 export default{
   name: "Chat",
   components: { 
     FontAwesomeIcon,
     popupConv,
+    sidebar,
   },
   data(){
   return {
@@ -69,6 +73,17 @@ export default{
         }
       },
   methods:{
+    channels(){ 
+      getChannels()
+          .then(data => {
+            if (data.status == 200) {
+              console.log(data.data)
+              }
+          })
+          .catch(error => {
+            console.log(error);
+          })
+        }
   },
   created () {
     console.log(localStorage.getItem('token')),

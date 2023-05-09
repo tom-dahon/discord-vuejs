@@ -73,13 +73,12 @@
 
 <script>
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import settingPopup from './settingPopup.vue';
+//import settingPopup from './settingPopup.vue';
 
 export default {
     name: "sidebar",
     components: { 
       FontAwesomeIcon,
-      settingPopup,
     },
     data(){
     return {
