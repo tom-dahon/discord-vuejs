@@ -1,4 +1,14 @@
 <template>
+  <div class="servers">
+    <div class="logo">
+      <span class="tooltiptext">Messages privés</span>
+      <img src="../../assets/discord2.png" alt="Discord" />
+    </div>
+    <div class="logo">
+      <span class="tooltiptext">Groupe</span>
+      <img src="../../assets/discord3.png" alt="Discord" />
+    </div>
+  </div>
   <sidebar/>
   <div class="chat d-flex flex-column flex-grow-1 bd-highlight">
       <div class="chatHeader d-flex justify-content-between">
@@ -21,8 +31,8 @@
             <div class="message">
               <img class="picture" src="../../assets/avatar.png" alt="Gher slices">
               <div class="message__info">
-                <h4>tt <span>tt</span></h4>
-                <p>tt</p>
+                <h4 class="text-light">tt <span>tt</span></h4>
+                <p class="text-light">tt</p>
               </div>
             </div>
           </div>
@@ -34,13 +44,19 @@
         </div>
         
         <div class="onlineTable d-flex flex-column">
-          <div class="online d-flex bd-highlight">
-            <img class="pictureOnline" src="../../assets/avatar.png" alt="Gher slices">
-            <p class="onlineText m-3">rsedtfyguhijok</p>>
+          <span class="ms-2 text-light">En Ligne</span>
+          <div class="enLigne">
+            <div class="online d-flex bd-highlight">
+              <img class="pictureOnline" src="../../assets/avatar.png" alt="Gher slices">
+              <p class="onlineText m-3">rsedtfyguhijok</p>>
+            </div>
           </div>
-          <div class="online d-flex bd-highlight">
-            <img class="pictureOnline" src="../../assets/avatar.png" alt="Gher slices">
-            <p class="onlineText m-3">rsedtfyguhijok</p>>
+          <span class="ms-2 text-light text-sm">Hors Ligne</span>
+          <div class="horsLigne">
+            <div class="online d-flex bd-highlight">
+              <img class="pictureOnline" src="../../assets/avatar.png" alt="Gher slices">
+              <p class="onlineText m-3">rsedtfyguhijok</p>>
+            </div>
           </div>
         </div>
       </div>
@@ -95,6 +111,40 @@ export default{
 
 
 <style>
+/* Servers */
+.servers{ 
+  background-color: #23272a;
+  }
+.logo{
+  margin: 7px;
+  position: relative;
+  /* display: inline-block; */
+  border:none;
+}
+.logo > img {
+  cursor: pointer;
+  border: none;
+}
+.tooltiptext {
+  visibility: hidden;
+  width: 160px;
+  background-color: rgb(0, 0, 0);
+  opacity: .7;
+  color: #ebe8e8;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+  top: 5px;
+  left: 110%;
+}
+
+.logo:hover .tooltiptext {
+  visibility: visible;
+}
+
 .chat {
     background-color: #313338;
 }

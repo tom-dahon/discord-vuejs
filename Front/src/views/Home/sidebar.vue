@@ -69,7 +69,7 @@
       </div>
     </div>
   </div>
-  <popupErreur mess="" v-if="alerte"/>
+  <!--<popupErreur mess="" v-if="alerte"/>-->
 </template>
 
 <script>
@@ -87,7 +87,7 @@ export default {
     data(){
     return {
       isHidden: false,
-      alerte: true,
+      alerte: false,
       message: "",
         }
       },
@@ -109,8 +109,8 @@ export default {
           })
       .catch(error => {
             //this.alerte = true;
-            this.popupErreur.changeProps("tatata")
-            this.message = "Erreur lors de la récupération des channels";
+            //this.popupErreur.changeProps("tatata")
+            //this.message = "Erreur lors de la récupération des channels";
             console.log(error);
           });
     },
