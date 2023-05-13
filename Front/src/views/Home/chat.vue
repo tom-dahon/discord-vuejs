@@ -72,6 +72,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import popupConv from '../../components/chat/popupConv.vue';
 import sidebar from './sidebar.vue';
 import { getChannels } from '../../api/caller.service';
+import multipleSelectVue from '../../components/chat/multipleSelect.vue';
 
 export default{
   name: "Chat",
@@ -79,6 +80,7 @@ export default{
     FontAwesomeIcon,
     popupConv,
     sidebar,
+    multipleSelectVue,
   },
   data(){
   return {
@@ -109,7 +111,7 @@ export default{
 
 </script>
 
-
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 <style>
 /* Servers */
 .servers{ 
@@ -117,6 +119,7 @@ export default{
   }
 .logo{
   margin: 7px;
+  margin-top:15px;
   position: relative;
   /* display: inline-block; */
   border:none;
@@ -145,6 +148,10 @@ export default{
   visibility: visible;
 }
 
+div.logo::before{
+  content:none;
+}
+/**/
 .chat {
     background-color: #313338;
 }

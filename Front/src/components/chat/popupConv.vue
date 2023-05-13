@@ -16,16 +16,8 @@
             </div>
 
             <h2>Ajout d'un Utilisateur</h2>
-
-            <form class="was-validated mb-3">
-              <select class="form-select" data-placeholder="Utilisateurs" id="valid-was-validated-multiple-field" multiple>
-              </select>
-            </form>
-
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-            <button id="createChannelButton" type="button" class="btn btn-primary" data-bs-dismiss="modal">Créer</button>
-          </div>
+            <multipleSelect/>
+            
         </div>
       </div>
     </div>
@@ -34,12 +26,11 @@
 </template>
 
 <script>
-export default {
-  name: "popupConv",
-}
-
+import multipleSelect from './multipleSelect.vue'
+  export default {
+    name: "popupConv",
+    components: { multipleSelect },
+  }
 </script>
-
 <style>
-
 </style>

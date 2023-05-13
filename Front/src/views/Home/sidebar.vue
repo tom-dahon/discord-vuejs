@@ -19,9 +19,10 @@
             <font-awesome-icon class="ms-5" size="md" icon="fa-solid fa-plus"/>
           </div>
 
-          <div class="sidebar__icon">
-            <font-awesome-icon size="lg" class="awesomeFake ms-2" icon="fa-solid fa-envelope" />
-            <span class="ms-3">conv message</span>
+          <div class="sidebar__icon"  v-for="data of channels" :key=data>
+            <!-- <font-awesome-icon size="lg" class="awesomeFake ms-2" icon="fa-solid fa-envelope" /> -->
+            <font-awesome-icon icon="awesomeFake fa-solid fa-users" />
+            <span class="ms-3">{{data.name}}</span>
           </div>
       </div>
     </div>
@@ -76,6 +77,7 @@
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { getChannels } from '@/api/caller.service';
 import popupErreur from '@/components/chat/popupErreur.vue';
+import { faThumbsDown } from '@fortawesome/free-solid-svg-icons';
 //import settingPopup from './settingPopup.vue';
 
 export default {
@@ -89,6 +91,7 @@ export default {
       isHidden: false,
       alerte: false,
       message: "",
+      channels:null,
         }
       },
     methods:{
@@ -103,10 +106,8 @@ export default {
     mounted(){
       getChannels()
       .then(data => {
-            if (data.data.status == 200) {
-              console.log(data.data)
-             }
-          })
+        this.channels = data;
+              console.log(data[0])})
       .catch(error => {
             //this.alerte = true;
             //this.popupErreur.changeProps("tatata")
@@ -135,11 +136,11 @@ export default {
     padding: 10px;
     /* cursor: pointer; */
   }
-  /* .sidebar__icon:hover {
+  .sidebar__icon:hover {
     color: #fff;
     background-color: #40464b;
     cursor: pointer;
-  } */
+  }
   input {
     color: #1c87c9;
     opacity: 1;
