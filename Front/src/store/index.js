@@ -5,6 +5,7 @@ const store = createStore({
         idUser: null,
         username: null,
         email: null,
+        idChannel: null,
       }
     },
     mutations: {
@@ -16,7 +17,10 @@ const store = createStore({
       },
       setUsernameUser (state, username) {
         state.username=username
-      }
+      },
+      setIdChannel (state, idChannel) {
+        state.idChannel=idChannel
+      },
     },
     getters: {
       getToken(state) {
@@ -30,7 +34,11 @@ const store = createStore({
       },
       getEmail(state) {
         return state.email
-      }
+      },
+      getIdChannel(state) {
+        return state.idChannel
+      },
+      
     }
 
 })

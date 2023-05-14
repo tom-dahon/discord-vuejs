@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { createStore } from "vuex";
-import store from "@/store";
-import router from '@/router';
+import store from "../store/index.js";
+import router from '../router/index.js';
 
 //axios.defaults.baseURL = process.env.baseURL || process.env.apiUrl || 'http://localhost:8083/api';
 
@@ -66,6 +66,12 @@ export async function getConnexion(userData) {
 //Channels
 export async function getChannels() {
   const response= await axiosIntance.get('/channels')
+  return response.data;
+}
+
+//Messages
+export async function getMessages(id) {
+  const response= await axiosIntance.get('/channels/'+id+'/messages')
   return response.data;
 }
 

@@ -71,7 +71,8 @@
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import popupConv from '../../components/chat/popupConv.vue';
 import sidebar from './sidebar.vue';
-import { getChannels } from '../../api/caller.service';
+import store from '../../store/index.js';
+import { getMessages } from '../../api/caller.service';
 import multipleSelectVue from '../../components/chat/multipleSelect.vue';
 
 export default{
@@ -94,18 +95,37 @@ export default{
       this.alerte = true;
       document.getElementById("alerte").innerHTML = mess;
     },
+    logout(){
+      localStorage.removeItem('token');
+      this.$router.push('/login');
+    },
+    getMessages(id){
+      console.log("id: ",id)
+      // if(id!=""){
+      // getMessages(id)
+      // .then(data => {
+      //   this.channels = data;
+      //         console.log(data)})
+      // .catch(error => {
+      //       //this.alerte = true;
+      //       //this.popupErreur.changeProps("tatata")
+      //       //this.message = "Erreur lors de la récupération des channels";
+      //       console.log(error);
+      //     });
+      //   },
+       },
+       c1method(){
+       console.log("dezafez")
+      }
+  },
+  mounted () {
+    // this.$root.$on('component1', () => {
+    //         this.c1method()
+    //     })
   },
   created () {
-      // getChannels()
-      //     .then(data => {
-      //       if (data.status == 200) {
-      //         console.log(data.data)
-      //         }
-      //     })
-      //     .catch(error => {
-      //       console.log(error);
-      //     })
-        }
+    // this.$root.$refs.Chat = this;
+  }
 }
 
 

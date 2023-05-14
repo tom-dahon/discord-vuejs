@@ -88,3 +88,12 @@ exports.signin = (req, res) => {
       res.status(500).send({ message: req.body });
     });
 };
+
+
+exports.signin = (req, res) => {
+  /* Cherche si le username correspond à un utilisateur existant, puis compare le 
+  password passé dans le body avec le mot de passe lié à l'utilisateur en base de données
+  return le user si cela correspond */
+  res.status(200).send({
+    ok
+  })};

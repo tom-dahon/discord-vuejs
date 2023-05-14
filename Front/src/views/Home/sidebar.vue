@@ -19,9 +19,9 @@
             <font-awesome-icon class="ms-5" size="md" icon="fa-solid fa-plus"/>
           </div>
 
-          <div class="sidebar__icon"  v-for="data of channels" :key=data>
+          <div class="sidebar__icon_conv" @click=getMessages v-for="data of channels" :key=data>
             <!-- <font-awesome-icon size="lg" class="awesomeFake ms-2" icon="fa-solid fa-envelope" /> -->
-            <font-awesome-icon icon="awesomeFake fa-solid fa-users" />
+            <font-awesome-icon size="lg" icon="awesomeFake fa-solid fa-users" />
             <span class="ms-3">{{data.name}}</span>
           </div>
       </div>
@@ -78,6 +78,8 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { getChannels } from '@/api/caller.service';
 import popupErreur from '@/components/chat/popupErreur.vue';
 import { faThumbsDown } from '@fortawesome/free-solid-svg-icons';
+import store from '../../store/index.js'
+import chat from './chat.vue';
 //import settingPopup from './settingPopup.vue';
 
 export default {
@@ -95,6 +97,16 @@ export default {
         }
       },
     methods:{
+      getMessages(){
+        console.log(store.state.idChannel)
+        // this.$chat.$emit(getMessages(store.state.idChannel))
+        // this.$refs.chat.getMessages(store.state.idChannel);
+        // this.$root.$emit('component1') //like this
+        // this.$root.$refs.Chat.foo();
+        // component('Chat').c1method()//like this
+
+
+      }
     //   showAlerte(mess){
     //     this.popupErreur.showAlerte()
     //     document.getElementById("alerte").innerHTML = mess;
@@ -107,7 +119,9 @@ export default {
       getChannels()
       .then(data => {
         this.channels = data;
-              console.log(data[0])})
+        store.commit('setIdChannel', data[0].id);
+        console.log(data[0].id)
+        console.log(data[0])})
       .catch(error => {
             //this.alerte = true;
             //this.popupErreur.changeProps("tatata")
@@ -134,12 +148,6 @@ export default {
   /* Fake menu */
   .sidebar__icon {
     padding: 10px;
-    /* cursor: pointer; */
-  }
-  .sidebar__icon:hover {
-    color: #fff;
-    background-color: #40464b;
-    cursor: pointer;
   }
   input {
     color: #1c87c9;
@@ -147,6 +155,18 @@ export default {
   }
   .sidebar__icon > span {
     font-weight: 600;
+  }
+  .sidebar__icon_conv{
+    padding:10px;
+  }
+  .sidebar__icon_conv > span {
+    font-weight: 600;
+  }
+  .sidebar__icon_conv:hover {
+    padding: 10px;
+    color: #fff;
+    background-color: #40464b;
+    cursor: pointer;
   }
   .sidebar_users{
     flex:auto;
