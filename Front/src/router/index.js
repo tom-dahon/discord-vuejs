@@ -4,13 +4,18 @@ import Chat from '../views/Home/chat.vue';
 import Signin from '../views/Signin/Signin.vue';
 import Signup from '../views/Signup/Signup.vue';
 import store from '../store'
+import sidebar from '../views/Home/sidebar.vue'
 
 const router = createRouter({
   history: createWebHistory(),
   routes: [
     { 
       path: '/chat', 
-      component: Chat 
+      component: Chat
+    },
+    { 
+      path: '/chat:id', 
+      component: sidebar
     },
     {
       path: '/signin',

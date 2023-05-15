@@ -1,84 +1,55 @@
 import { mount, createLocalVue } from "@vue/test-utils";
 import axiosIntance from "../src/api/caller.service";
-import moxios from "moxios";
 import Vuex from "vuex";
 import store from '../src/store/index.js'
-import VueRouter from 'vue-router';
+import router from 'vue-router';
 import Signin from "../src/views/Signin/Signin.vue";  // Remplacez cela par le chemin de votre composant
+import moxios from "moxios";
+import { getConnexion } from "../src/api/caller.service";
 
-const localVue = createLocalVue();
+jest.mock("../src/api/caller.service");
+jest.mock("../src/router/index.js");
 
-localVue.use(Vuex);
-localVue.use(VueRouter);
-
-describe("Signin", () => {
-  let wrapper;
-  let store;
-  let router;
-
+describe("Signin.vue", () => {
   beforeEach(() => {
-    moxios.install(axiosIntance);
-
-    store = new Vuex.Store({
-      state: {
-        emailUser: "",
-        usernameUser: "",
-        userId: ""
-      },
-      mutations: {
-        setEmailUser(state, email) {
-          state.emailUser = email;
-        },
-        setUsernameUser(state, username) {
-          state.usernameUser = username;
-        },
-        setUserId(state, id) {
-          state.userId = id;
-        }
-      }
-    });
-
-    router = new VueRouter();
-
-    wrapper = mount(Signin, {
-      localVue,
-      store,
-      router
-    });
+    moxios.install();
   });
 
   afterEach(() => {
-    moxios.uninstall(axiosIntance);
+    moxios.uninstall();
   });
 
-  it("handles submission and sets state and localStorage", (done) => {
-    const userData = { "username": "testUser", "password": "testPass" };
+  it("handleSubmit should handle successful response", async () => {
+    const wrapper = mount(Signin, { store });
 
-    wrapper.find("#username").setValue(userData.username);
-    wrapper.find("#password").setValue(userData.password);
+    const response = {
+      status: 200,
+      data: {
+        token: "test-token",
+        email: "test@example.com",
+        username: "test-username",
+        id: 1,
+      },
+    };
 
-    moxios.wait(() => {
-      let request = moxios.requests.mostRecent();
-      request
-        .respondWith({
-          status: 200,
-          response: {
-            token: "testToken",
-            email: "testEmail",
-            username: "testUser",
-            id: "testId"
-          },
-        })
-        .then(() => {
-          expect(localStorage.getItem('token')).toBe('testToken');
-          expect(store.state.emailUser).toBe('testEmail');
-          expect(store.state.usernameUser).toBe('testUser');
-          expect(store.state.userId).toBe('testId');
-          expect(wrapper.vm.$route.path).toBe('/chat');
-          done();
-        });
+    getConnexion.mockResolvedValue(response);
+    router.push.mockImplementation(() => {});
+
+    const username = { value: "test-username" };
+    const password = { value: "test-password" };
+
+    wrapper.vm.handleSubmit.call({ $store: store, username, password });
+
+    await moxios.wait();
+
+    expect(getConnexion).toHaveBeenCalledWith({
+      username: username.value,
+      password: password.value,
     });
-
-    wrapper.find('button').trigger('click');  // Cela déclenche le clic sur le bouton et appelle handleSubmit
+    expect(localStorage.setItem).toHaveBeenCalledWith("token", response.data.token);
+    expect(store.commit).toHaveBeenCalledWith("setEmailUser", response.data.email);
+    expect(store.commit).toHaveBeenCalledWith("setUsernameUser", response.data.username);
+    expect(store.commit).toHaveBeenCalledWith("setUserId", response.data.id);
+    expect(router.push).toHaveBeenCalledWith("/chat");
   });
 });

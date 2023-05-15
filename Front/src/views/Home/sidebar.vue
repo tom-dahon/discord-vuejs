@@ -18,12 +18,14 @@
         
             <font-awesome-icon class="ms-5" size="md" icon="fa-solid fa-plus"/>
           </div>
-
-          <div class="sidebar__icon_conv" @click=getMessages v-for="data of channels" :key=data>
-            <!-- <font-awesome-icon size="lg" class="awesomeFake ms-2" icon="fa-solid fa-envelope" /> -->
+          
+          <div @click="getMessage" class="sidebar__icon_conv" v-for="data of channels" :key=data>
+            <router-link  style="text-decoration: none; color: inherit;" :to="'/chat/'+data.id">
             <font-awesome-icon size="lg" icon="awesomeFake fa-solid fa-users" />
-            <span class="ms-3">{{data.name}}</span>
+            <span class="ms-3">{{ data.name }}</span>
+            </router-link>
           </div>
+          
       </div>
     </div>
     
@@ -97,8 +99,14 @@ export default {
         }
       },
     methods:{
-      getMessages(){
-        console.log(store.state.idChannel)
+      getMessage : function() {
+        // this.$emit('my-event')
+        // this.$store.commit('setIdChannel', this.channels.idChannel)
+        // this.$store.commit('setNameChannel', this.channels.nameChannel)
+        console.log(this.$store.state.idChannel)
+        console.log(this.$store.state.nameChannel)
+
+
         // this.$chat.$emit(getMessages(store.state.idChannel))
         // this.$refs.chat.getMessages(store.state.idChannel);
         // this.$root.$emit('component1') //like this
@@ -106,22 +114,25 @@ export default {
         // component('Chat').c1method()//like this
 
 
-      }
-    //   showAlerte(mess){
-    //     this.popupErreur.showAlerte()
-    //     document.getElementById("alerte").innerHTML = mess;
-    //     setTimeout(() => {
-    //       this.alerte = true;
-    //     }, 1000);
-    // },
+        // }
+        //   showAlerte(mess){
+        //     this.popupErreur.showAlerte()
+        //     document.getElementById("alerte").innerHTML = mess;
+        //     setTimeout(() => {
+        //       this.alerte = true;
+        //     }, 1000);
+        // },
     },
+  },
     mounted(){
       getChannels()
       .then(data => {
         this.channels = data;
         store.commit('setIdChannel', data[0].id);
+        store.commit('setNameChannel', data[0].name);
         console.log(data[0].id)
         console.log(data[0])})
+        // $router.push({ path: `/chat/${null}`})
       .catch(error => {
             //this.alerte = true;
             //this.popupErreur.changeProps("tatata")
@@ -130,6 +141,7 @@ export default {
           });
     },
 }
+
 </script>
 
 <style>
@@ -145,7 +157,7 @@ export default {
     border-bottom: 2px solid #26282c;
   }
 
-  /* Fake menu */
+  /* menu */
   .sidebar__icon {
     padding: 10px;
   }

@@ -14,7 +14,7 @@
       <div class="chatHeader d-flex justify-content-between">
         <div class="chatHeader__left d-flex">
           <font-awesome-icon class="color fa-xl ms-3 mt-3" size="lg" color="grey"  icon="fa-solid fa-at" />
-          <h3 id="channelName" class="m-2 ms-3 text-light">ttt</h3>
+          <h3 id="channelName" class="m-2 ms-3 text-light"></h3>
         </div>
         <div class="endDiv">
           <button @click="visible = !visible" id="newChannel" type="button" class="btn m-2 btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -95,12 +95,8 @@ export default{
       this.alerte = true;
       document.getElementById("alerte").innerHTML = mess;
     },
-    logout(){
-      localStorage.removeItem('token');
-      this.$router.push('/login');
-    },
-    getMessages(id){
-      console.log("id: ",id)
+    // getMessages(id){
+    //   console.log("id: ",id)
       // if(id!=""){
       // getMessages(id)
       // .then(data => {
@@ -113,10 +109,7 @@ export default{
       //       console.log(error);
       //     });
       //   },
-       },
-       c1method(){
-       console.log("dezafez")
-      }
+      //  },
   },
   mounted () {
     // this.$root.$on('component1', () => {
