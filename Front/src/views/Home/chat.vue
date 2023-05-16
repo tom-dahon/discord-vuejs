@@ -28,7 +28,7 @@
         <div class="chat d-flex flex-grow-1 flex-column">
 
           <div class="chat__messages d-flex justify-content-start">
-            <!-- <message v-for="mess in messages" :key="mess" text="{{mess.text}}"/> -->
+            <message v-for="mess in messages" :key="mess" text="{{mess.text}}"/>
           </div>
 
           <div class="chat__input d-flex justify-content-end">
