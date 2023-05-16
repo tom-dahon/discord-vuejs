@@ -7,6 +7,7 @@ const store = createStore({
         email: null,
         idChannel: 'null',
         nameChannel: 'null',
+        message:[],
       }
     },
     mutations: {
@@ -24,6 +25,9 @@ const store = createStore({
       },
       setNameChannel (state, nameChannel) {
         state.nameChannel=nameChannel
+      },
+      setMessage (state, message) {
+        state.message=message
       },
     },
     getters: {
@@ -45,6 +49,9 @@ const store = createStore({
       getNameChannel(state) {
         return state.nameChannel
       },
+      getMessage(state){
+        return state.message
+      }
       
     }
 

@@ -28,13 +28,7 @@
         <div class="chat d-flex flex-grow-1 flex-column">
 
           <div class="chat__messages d-flex justify-content-start">
-            <div class="message">
-              <img class="picture" src="../../assets/avatar.png" alt="Gher slices">
-              <div class="message__info">
-                <h4 class="text-light">tt <span>tt</span></h4>
-                <p class="text-light">tt</p>
-              </div>
-            </div>
+            <message v-for="mess in messages" :key="mess" text="{{mess.text}}"/>
           </div>
 
           <div class="chat__input d-flex justify-content-end">
@@ -73,6 +67,8 @@ import popupConv from '../../components/chat/popupConv.vue';
 import sidebar from './sidebar.vue';
 import store from '../../store/index.js';
 import { getMessages } from '../../api/caller.service';
+import message from '../../components/chat/message.vue';
+
 import multipleSelectVue from '../../components/chat/multipleSelect.vue';
 
 export default{
@@ -87,7 +83,8 @@ export default{
   return {
             visible: false,
             channelListe: null,
-            alerte: false
+            alerte: false,
+            timer: null,
         }
       },
   methods:{
@@ -95,29 +92,55 @@ export default{
       this.alerte = true;
       document.getElementById("alerte").innerHTML = mess;
     },
-    // getMessages(id){
-    //   console.log("id: ",id)
-      // if(id!=""){
-      // getMessages(id)
-      // .then(data => {
-      //   this.channels = data;
-      //         console.log(data)})
-      // .catch(error => {
-      //       //this.alerte = true;
-      //       //this.popupErreur.changeProps("tatata")
-      //       //this.message = "Erreur lors de la récupération des channels";
-      //       console.log(error);
-      //     });
-      //   },
-      //  },
+      // getMessages(){
+      //   console.log("id: ",id)
+      //   if(id!=""){
+      //   getMessages(id)
+      //   .then(data => {
+      //     this.channels = data;
+      //           console.log(data)})
+      //   .catch(error => {
+      //         //this.alerte = true;
+      //         //this.popupErreur.changeProps("tatata")
+      //         //this.message = "Erreur lors de la récupération des channels";
+      //         console.log(error);
+      //       });
+      //     }
+      // },
+    requestMessage(){
+      getMessages(18)
+      .then(data => {
+        console.log("status")
+        store.commit('setMessage',data);
+              console.log(data)})
+      .catch(error => {
+            //this.alerte = true;
+            //this.popupErreur.changeProps("tatata")
+            //this.message = "Erreur lors de la récupération des channels";
+            console.log(error);
+          });
+    }
   },
-  mounted () {
-    // this.$root.$on('component1', () => {
-    //         this.c1method()
-    //     })
-  },
+  // mounted () {
+  //   // this.$root.$on('component1', () => {
+  //   //         this.c1method()
+  //   //     })
+  //   this.timer = setInterval(() => {
+  //     console.log("jghvbn")
+  //     requestMessage()
+  //   }, 10)
+  // },
   created () {
+    this.interval = setInterval(() => this.requestMessage(), 3000);
     // this.$root.$refs.Chat = this;
+  },
+  computed: {
+    messages() {
+      return store.state.message;
+    }
+  },
+  beforeDestroy() {
+    clearInterval(this.timer)
   }
 }
 
@@ -171,7 +194,10 @@ div.logo::before{
 
 /* Message */
 .chat__messages {
-    overflow: scroll;
+  flex-direction: column;
+  overflow: scroll;
+  border-top:2px solid #26282c;
+  flex:1;
 }
 .message {
     display: flex;
@@ -212,11 +238,6 @@ textarea:focus, input:focus{
 /* .btn:hover{
   border:none;
 } */
-
-.chat__messages{
-  border-top:2px solid #26282c;
-  flex:1;
-}
 
 .color{
   color: lightgray;
