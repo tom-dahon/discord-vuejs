@@ -8,7 +8,7 @@
         :selectedItem="selectedItem"
         @clearInput="selectedItem = []"
         readonly
-        placeholder="İsim Seçiniz"
+        placeholder="name"
       />
       <span class="open-icon" @click="showMenu = !showMenu">
         <OpenIcon width="20px" height="14px" />

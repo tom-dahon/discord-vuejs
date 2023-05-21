@@ -7,11 +7,11 @@
 
 .input-container {
     position: relative;
-    width: 100%;
+    width: 90%;
 
     & .input {
         border: none;
-        background-color: rgba(195, 194, 194, 0.197);
+        background-color: rgba(235, 235, 235, 0.197);
         border-radius: 8px;
         padding: 12px 16px;
         box-sizing: border-box;
@@ -22,13 +22,13 @@
         }
 
         &::placeholder {
-            color: #9b9b9b;
+            color: #ffffff;
         }
     }
 
     & .icon {
         position: absolute;
-        right: 38%;
+        right: 5%;
         top: 55%;
         transform: translate(-50%, -50%);
         cursor: pointer;
@@ -36,7 +36,7 @@
 
     & .open-icon {
         position: absolute;
-        right: 36%;
+        right: 5%;
         top: 55%;
         transform: translate(-50%, -50%);
         cursor: pointer;
@@ -57,6 +57,14 @@
         &::placeholder {
             color: #cccccc;
         }
+    }
+
+    & textarea:focus, input:focus {
+        color: white;
+    }
+    
+    & input, select, textarea{
+        color: white;
     }
 
 }
