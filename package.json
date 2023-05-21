@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "vue-multiselect": "^3.0.0-beta.2",
     "vue3-select2-component": "^0.1.7"
   },
   "devDependencies": {

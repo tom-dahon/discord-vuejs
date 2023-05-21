@@ -1,19 +1,17 @@
 <template>
   <div>
-    <label class="typo__label">Single select</label>
-    <multiselect v-model="value" :options="options" :searchable="false" :close-on-select="false" :show-labels="false" placeholder="Pick a value"></multiselect>
-    <pre class="language-json"><code>{{ value  }}</code></pre>
+    <multiselect v-model="value" :options="options"></multiselect>
 </div>
 </template>
 
 <script>
-  import Multiselect from 'vue-multiselect'
+import Multiselect from 'vue-multiselect'
 export default {
   name:'multipleSelector',
   components: { Multiselect },
   data () {
     return {
-      value: '',
+      value: null,
       options: ['Select option', 'options', 'selected', 'multiple', 'label', 'searchable', 'clearOnSelect', 'hideSelected', 'maxHeight', 'allowEmpty', 'showLabels', 'onChange', 'touched']
     }
   }
@@ -21,3 +19,7 @@ export default {
 </script>
 
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
+
+<style>
+
+</style>

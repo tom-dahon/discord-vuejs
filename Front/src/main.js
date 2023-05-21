@@ -11,16 +11,18 @@ import { faEnvelope, faUser,faPlus, faGear, faHeadphones, faMicrophone, faCircle
 import router from '@/router';
 import { createStore } from 'vuex'
 library.add(faUser,faEnvelope,faPlus,faHeadphones,faGear,faMicrophone,faCirclePlus,faUserPlus,faAt,faUsers)
-import Multiselect from 'vue-multiselect'
-import Select2 from 'vue3-select2-component';
+// import Multiselect from 'vue-multiselect'
+// import Select2 from 'vue3-select2-component';
 // Create a Vue application
+// import Multiselect from 'vue-multiselect'
+
 import store from './store'
 
 const app = createApp(App);
 app.use(store)
 app.use(router)
 // app.component('Select2', Select2)
-app.component('multiselect', Multiselect)
+// app.component('multiselect', Multiselect)
 app.mount('#app')
 
 //Home.component('font-awesome-icon', FontAwesomeIcon)

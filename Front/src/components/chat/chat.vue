@@ -14,10 +14,10 @@
       <div class="chatHeader d-flex justify-content-between">
         <div class="chatHeader__left d-flex">
           <font-awesome-icon class="color fa-xl ms-3 mt-3" size="lg" color="grey"  icon="fa-solid fa-at" />
-          <h3 id="channelName" class="m-2 ms-3 text-light"></h3>
+          <h3 id="channelName" class="m-2 ms-3 text-light">{{store.state.nameChannel}}</h3>
         </div>
         <div class="endDiv">
-          <button @click="visible = !visible" id="newChannel" type="button" class="btn m-2 btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          <button  id="newChannel" v-on:click="toggleModale" type="button" class="btn m-2 btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
             <font-awesome-icon class="color" size="sm" icon="fa-solid fa-user-plus" />
           </button>
           <button @click="logout()" id="logout" type="button" class="btn btn-dark btn-sm mr-5">Déconnexion</button>
@@ -28,12 +28,12 @@
         <div class="chat d-flex flex-grow-1 flex-column">
 
           <div class="chat__messages d-flex justify-content-start">
-            <message v-for="mess in messages" :key="mess" text="{{mess.text}}"/>
+            <MessageComponent v-for="mess in messages" :key="mess" v-bind:text="mess"/>
           </div>
 
           <div class="chat__input d-flex justify-content-end">
             <font-awesome-icon class="plusInput fa-2xl" size="lg" icon="fa-solid fa-circle-plus" />
-            <input type="text" class="d-flex ms-2 bg-gradient-primary text-white" v-model="message" placeholder="Envoyer un message à "/>
+            <input type="text" class="d-flex ms-2 bg-gradient-primary text-white" v-on:keyup.enter="envoieMessage" v-model="messagePlaceHolder" placeholder="Envoyer un message"/>
           </div>
         </div>
         
@@ -55,99 +55,93 @@
         </div>
       </div>
   </div>
+  
+  <!-- <PopupConversation :revele="revele" :toggleModale="toggleModale"></PopupConversation> -->
 
 
   <popupConv v-if="!visible" key="convPopup"/>
 
 </template>
-
-<script>
+<script setup>
+// import PopupConversation from '../../../../component/PopupConversation.vue'
+import data from './data.json'
+import SelectBox from './MultipleSelect/Selectbox/index.vue';
+import { ref, onMounted, computed } from 'vue';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import popupConv from '../../components/chat/popupConv.vue';
-import sidebar from './sidebar.vue';
+import popupConv from './popupConv.vue';
+import sidebar from '../../views/Home/sidebar.vue';
 import store from '../../store/index.js';
-import { getMessages } from '../../api/caller.service';
-import message from '../../components/chat/message.vue';
+import { getMessages,getChannels,sendMessage } from '../../api/caller.service';
+import MessageComponent from './MessageComponent.vue'
 
-import multipleSelectVue from '../../components/chat/multipleSelect.vue';
+onMounted(() => {
+  setInterval(() => {
+    requestMessage(store.state.idChannel)
+  }, 6000)
+})
 
-export default{
-  name: "Chat",
-  components: { 
-    FontAwesomeIcon,
-    popupConv,
-    sidebar,
-    multipleSelectVue,
-  },
-  data(){
-  return {
-            visible: false,
-            channelListe: null,
-            alerte: false,
-            timer: null,
-        }
-      },
-  methods:{
-    showAlerte(mess){
-      this.alerte = true;
-      document.getElementById("alerte").innerHTML = mess;
-    },
-      // getMessages(){
-      //   console.log("id: ",id)
-      //   if(id!=""){
-      //   getMessages(id)
-      //   .then(data => {
-      //     this.channels = data;
-      //           console.log(data)})
-      //   .catch(error => {
-      //         //this.alerte = true;
-      //         //this.popupErreur.changeProps("tatata")
-      //         //this.message = "Erreur lors de la récupération des channels";
-      //         console.log(error);
-      //       });
-      //     }
-      // },
-    requestMessage(){
-      getMessages(18)
+const visible = ref(false);
+const channelListe = ref(null);
+const alerte = ref(false);
+const timer = ref(null);
+const messagePlaceHolder = ref(null)
+
+// const showAlerte = (mess) => {
+//   alerte.value = true;
+//   document.getElementById("alerte").innerHTML = mess;
+// };
+
+const getChannel= () => {  
+  getChannels()
       .then(data => {
-        console.log("status")
-        store.commit('setMessage',data);
-              console.log(data)})
+        this.channels = data;
+        store.commit('setIdChannel', data[0].id);
+        store.commit('setNameChannel', data[0].name);
+      })
       .catch(error => {
             //this.alerte = true;
             //this.popupErreur.changeProps("tatata")
             //this.message = "Erreur lors de la récupération des channels";
             console.log(error);
           });
-    }
-  },
-  // mounted () {
-  //   // this.$root.$on('component1', () => {
-  //   //         this.c1method()
-  //   //     })
-  //   this.timer = setInterval(() => {
-  //     console.log("jghvbn")
-  //     requestMessage()
-  //   }, 10)
-  // },
-  created () {
-    this.interval = setInterval(() => this.requestMessage(), 3000);
-    // this.$root.$refs.Chat = this;
-  },
-  computed: {
-    messages() {
-      return store.state.message;
-    }
-  },
-  beforeDestroy() {
-    clearInterval(this.timer)
-  }
-}
+        }
 
+const requestMessage = (id) => {
+  getMessages(id)
+    .then(data => {
+      // console.log(data);
+      store.commit('setMessage', data);
+      store.state.message.forEach(element => {
+        // console.log(element);
+      });
+    })
+    .catch(error => {
+      console.log(error);
+    });
+};
+
+const envoieMessage=() => {
+  sendMessage(store.state.idChannel, messagePlaceHolder.value, store.state.idUser)
+    .then(data => {
+      console.log(data);
+      requestMessage(store.state.idChannel);
+      this.messagePlaceHolder.value = '';
+    })
+    .catch(error => {
+      console.log(error);
+    });
+};
+
+const messages = computed(() => {
+  return store.state.message;
+});
+
+// const toggleModale= function() {
+//       this.revele = !this.revele;
+//     }
 
 </script>
 
-<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 <style>
 /* Servers */
 .servers{ 

@@ -8,7 +8,7 @@
   </div>
 </template>
 <script>
-import Select2 from 'vue3-select2-component';
+// import Select2 from 'vue3-select2-component';
 
 export default {
   name:'multipleSelector',

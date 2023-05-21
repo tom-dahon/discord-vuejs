@@ -16,10 +16,10 @@
           <div class="messagePrivee justify-content-between">
             <span class="messagePrive">MESSAGES PRIVÉS</span>
         
-            <font-awesome-icon class="ms-5" size="md" icon="fa-solid fa-plus"/>
+            <!-- <font-awesome-icon class="ms-5" size="md" icon="fa-solid fa-plus"/> -->
           </div>
           
-          <div @click="getMessage" class="sidebar__icon_conv" v-for="data of channels" :key=data>
+          <div @click="getMessage(data.name,data.id)" class="sidebar__icon_conv" v-for="data of channels" :key=data>
             <router-link  style="text-decoration: none; color: inherit;" :to="'/chat/'+data.id">
             <font-awesome-icon size="lg" icon="awesomeFake fa-solid fa-users" />
             <span class="ms-3">{{ data.name }}</span>
@@ -77,11 +77,11 @@
 
 <script>
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { getChannels } from '@/api/caller.service';
+import { getChannels,getMessages } from '@/api/caller.service';
 import popupErreur from '@/components/chat/popupErreur.vue';
 import { faThumbsDown } from '@fortawesome/free-solid-svg-icons';
 import store from '../../store/index.js'
-import chat from './chat.vue';
+import chat from '../../components/chat/chat.vue';
 //import settingPopup from './settingPopup.vue';
 
 export default {
@@ -99,12 +99,12 @@ export default {
         }
       },
     methods:{
-      getMessage : function() {
-        // this.$emit('my-event')
-        // this.$store.commit('setIdChannel', this.channels.idChannel)
-        // this.$store.commit('setNameChannel', this.channels.nameChannel)
-        console.log(this.$store.state.idChannel)
-        console.log(this.$store.state.nameChannel)
+      getMessage : function(name,id) {
+        store.commit('setIdChannel', id)
+        store.commit('setNameChannel', name)
+        this.setStoreMessage(id)
+        // console.log(store.state.idChannel)
+        // console.log(store.state.nameChannel)
 
 
         // this.$chat.$emit(getMessages(store.state.idChannel))
@@ -123,6 +123,18 @@ export default {
         //     }, 1000);
         // },
     },
+    setStoreMessage : function(id) {
+      getMessages(id)
+      .then(data => {
+        store.commit('setMessage', data);
+      })
+      .catch(error => {
+            //this.alerte = true;
+            //this.popupErreur.changeProps("tatata")
+            //this.message = "Erreur lors de la récupération des channels";
+            console.log(error);
+          });
+    },
   },
     mounted(){
       getChannels()
@@ -130,9 +142,8 @@ export default {
         this.channels = data;
         store.commit('setIdChannel', data[0].id);
         store.commit('setNameChannel', data[0].name);
-        console.log(data[0].id)
-        console.log(data[0])})
-        // $router.push({ path: `/chat/${null}`})
+        this.setStoreMessage(data[0].id);
+      })
       .catch(error => {
             //this.alerte = true;
             //this.popupErreur.changeProps("tatata")

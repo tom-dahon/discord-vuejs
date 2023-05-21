@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import chat from './Home/chat.vue'
+import chat from '../components/chat/chat.vue'
 import server from '../components/server/server.vue'
 import sidebar from './Home/sidebar.vue'
 

@@ -1,4 +1,5 @@
 <template>
+  
     <!-- Modal Boostrap -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
@@ -16,8 +17,9 @@
             </div>
 
             <h2>Ajout d'un Utilisateur</h2>
-            <multipleSelect/>
-            
+            <div>
+              <SelectBox :data="data"/>
+            </div>         
         </div>
       </div>
     </div>
@@ -26,11 +28,20 @@
 </template>
 
 <script>
-import multipleSelect from './multipleSelect.vue'
+import data from './data.json'
+import SelectBox from './MultipleSelect/Selectbox/index.vue'
   export default {
     name: "popupConv",
-    components: { multipleSelect },
+    components: {  SelectBox },
+    data () {
+      return {
+        selected: null,
+        options: ['list', 'of', 'options'],
+        data: data,
+      };
+    }
   }
 </script>
+
 <style>
 </style>

@@ -13,7 +13,7 @@ const axiosIntance = axios.create({
   }
 });
 
-
+//request interceptor
 axiosIntance.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token');
@@ -27,6 +27,18 @@ axiosIntance.interceptors.request.use(
     return Promise.reject(error);
   }
 );
+
+//redirect to login page if token expired
+axiosIntance.interceptors.response.use(undefined, function (error) {
+  if (error) {
+    const originalRequest = error.config;
+    if (error.response.status === 401 && !originalRequest._retry) {
+  
+        originalRequest._retry = true;
+        return router.push('/signin')
+    }
+  }
+})
 
 // axiosIntance.interceptors.request.use(
 //   (config) => {
@@ -72,6 +84,15 @@ export async function getChannels() {
 //Messages
 export async function getMessages(id) {
   const response= await axiosIntance.get('/channels/'+id+'/messages')
+  return response.data;
+}
+
+export async function sendMessage(id,text,userId) {
+  const requestBody = {
+    text: text,
+    userId: userId
+  }
+  const response= await axiosIntance.post('/channels/'+id+'/sendMessage',requestBody)
   return response.data;
 }
 

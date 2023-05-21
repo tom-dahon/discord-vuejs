@@ -5,8 +5,8 @@ const store = createStore({
         idUser: null,
         username: null,
         email: null,
-        idChannel: 'null',
-        nameChannel: 'null',
+        idChannel: null,
+        nameChannel: null,
         message:[],
       }
     },
@@ -23,8 +23,8 @@ const store = createStore({
       setIdChannel (state, idChannel) {
         state.idChannel=idChannel
       },
-      setNameChannel (state, nameChannel) {
-        state.nameChannel=nameChannel
+      setNameChannel (state, data) {
+        state.nameChannel=data
       },
       setMessage (state, message) {
         state.message=message

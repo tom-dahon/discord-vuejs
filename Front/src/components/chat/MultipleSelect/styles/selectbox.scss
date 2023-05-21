@@ -1,0 +1,62 @@
+.selectbox-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+
+    .input-container {
+        position: relative;
+
+        .selectbox-input {
+            width: 300px;
+            border: none;
+            background-color: rgb(226, 226, 226);
+            border-radius: 8px;
+            padding: 12px 35px 12px 12px;
+            box-sizing: border-box;
+            font-weight: bold;
+            text-overflow: ellipsis;
+
+            &:focus-visible {
+                outline: 2px solid rgb(227, 227, 227);
+                background-color: #fff;
+            }
+        }
+    }
+
+    .select-menu {
+        margin-top: 50px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.16);
+        border: solid 1px rgba(0, 0, 0, 0.08);
+        background-color: #fff;
+        max-height: 230px;
+        padding: 16px;
+        overflow: auto;
+        position: absolute;
+        width: 400px;
+        box-sizing: border-box;
+
+        .items {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+
+            .item {
+                padding: 5px 0;
+                cursor: pointer;
+                color: #000;
+                font-size: 16px;
+                display: flex;
+                align-items: center;
+                gap: 5px;
+
+                .checkbox {
+                    cursor: pointer;
+                    width: 16px;
+                    height: 16px;
+                }
+
+            }
+        }
+    }
+}
