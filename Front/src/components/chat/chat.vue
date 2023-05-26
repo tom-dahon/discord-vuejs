@@ -27,14 +27,18 @@
       <div class="d-flex flex-grow-1 bd-highlight">
         <div class="chat d-flex flex-grow-1 flex-column">
 
+          <div class="chat_message_scroll d-flex">
           <div class="chat__messages d-flex justify-content-start">
             <MessageComponent v-for="mess in messages" :key="mess" v-bind:text="mess"/>
+          </div>
           </div>
 
           <div class="chat__input d-flex justify-content-end">
             <font-awesome-icon class="plusInput fa-2xl" size="lg" icon="fa-solid fa-circle-plus" />
             <input type="text" class="d-flex ms-2 bg-gradient-primary text-white" v-on:keyup.enter="envoieMessage" v-model="messagePlaceHolder" placeholder="Envoyer un message"/>
           </div>
+          <div class="cover-bar"></div>
+
         </div>
         
         <div class="onlineTable d-flex flex-column">
@@ -185,14 +189,38 @@ div.logo::before{
 .chat {
     background-color: #313338;
 }
+/* scroll */
+/* 
+.chat__messages::-webkit-scrollbar,
+.chat__messages::-webkit-scrollbar-thumb {
+  overflow:visible;
+  border-radius: 4px;
+}
+.chat__messages::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,.2); 
+}
+.cover-bar {
+  position: absolute;
+  background: #fff;;
+  height: 100%;  
+  top: 0;
+  right: 0;
+  width: .4em;
+  -webkit-transition: all .5s;
+  opacity: 1;
+}
+/* MAGIC HAPPENS HERE */
 
 /* Message */
 .chat__messages {
+  display: block;
   flex-direction: column;
-  overflow: scroll;
   border-top:2px solid #26282c;
   flex:1;
 }
+/* .chat_message_scroll{
+  overflow-y: scroll;
+} */
 .message {
     display: flex;
     padding-left: 20px;
