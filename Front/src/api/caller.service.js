@@ -81,6 +81,16 @@ export async function getChannels() {
   return response.data;
 }
 
+export async function createChannel(name, users) {
+  const requestBody = {
+    name: name,
+    users: users
+  }
+
+  const response= await axiosIntance.post('/channels/createChannel', requestBody)
+  return response.data;
+}
+
 //Messages
 export async function getMessages(id) {
   const response= await axiosIntance.get('/channels/'+id+'/messages')
@@ -93,6 +103,11 @@ export async function sendMessage(id,text,userId) {
     userId: userId
   }
   const response= await axiosIntance.post('/channels/'+id+'/sendMessage',requestBody)
+  return response.data;
+}
+
+export async function getUsers(userId) {
+  const response= await axiosIntance.get('/users/all/'+ userId)
   return response.data;
 }
 

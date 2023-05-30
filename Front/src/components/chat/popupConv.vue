@@ -12,14 +12,18 @@
 
             <h2>Nom du groupe</h2>
             <div class="form-floating mb-3">
-              <input type="text" class="form-control" id="groupName" placeholder="Nom du groupe">
+              <input type="text" class="form-control" id="groupName" placeholder="Nom du groupe" v-model="groupName">
               <label for="groupName"></label>
             </div>
 
             <h2>Ajout d'un Utilisateur</h2>
             <div>
-              <SelectBox :data="data"/>
-            </div>         
+              <SelectBox :data="users"/>
+            </div>   
+            
+            <div>
+              <button @click="addChannel">Créer un channel</button>
+            </div>
         </div>
       </div>
     </div>
@@ -30,16 +34,42 @@
 <script>
 import data from './data.json'
 import SelectBox from './MultipleSelect/Selectbox/index.vue'
+import { getUsers, createChannel } from '@/api/caller.service';
+import store from '../../store/index.js';
   export default {
+  methods: {
+    addChannel: function () {
+      createChannel(this.groupName, store.state.selectedItem)
+    .then(data => {
+      console.log(data);
+    })
+    .catch(error => {
+      console.log(error);
+    });
+    },
+  },
+  props: {
+  },
     name: "popupConv",
     components: {  SelectBox },
     data () {
       return {
         selected: null,
         options: ['list', 'of', 'options'],
-        data: data,
+        users: null,
+        groupName: ""
       };
-    }
+    },
+    mounted() {
+      getUsers(24)
+      .then(data => {
+        console.log(data)
+        this.users = data;
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
   }
 </script>
 

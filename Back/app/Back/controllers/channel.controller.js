@@ -7,23 +7,27 @@ const Sequelize = require('sequelize');
 const op = Sequelize.Op;
 
 exports.createChannel = (req, res) => {
-  // Créer un channel avec les users passés dans le body, ainsi que le user connecté
+    // Créer un channel avec les users passés dans le body, ainsi que le user connecté
+    let private = 1  
+    if(Object.keys(req.body.users).length > 1)
+      private = 0
     Channel.create({
-        name: req.body.name
-    }).then(channel => {
-      console.log(req.body.users);
-        ChannelUsers.create({
-          channelId: channel.dataValues.id,
-          userId: req.body.loggedUserId
-        })
-        req.body.users.forEach(userId => {
-            ChannelUsers.create({
-                channelId: channel.dataValues.id,
-                userId: userId
-            });
-        });
-        res.status(200).send(channel); 
-    });
+          name: req.body.name,
+          private: private
+      }).then(channel => {
+        console.log(req.body.users);
+          ChannelUsers.create({
+            channelId: channel.dataValues.id,
+            userId: req.body.loggedUserId
+          })
+          req.body.users.forEach(userId => {
+              ChannelUsers.create({
+                  channelId: channel.dataValues.id,
+                  userId: userId
+              });
+          });
+          res.status(200).send(channel); 
+      });
 };
 
 
@@ -68,6 +72,37 @@ exports.getChannel = (req, res) => {
         return res.status(200).send(channel);
     })
 };
+
+exports.getPrivateChannels = (req, res) => {
+  // Récupérer un channel privé (2 personnes dans le channel max)
+    Channel.findAll({
+      where: {
+        private: 1
+      }
+    })
+    .then(channels => {
+      if (!channels) {
+        return res.status(404).send({ message: "Aucun channel privé n'a été trouvé." });
+      }
+        return res.status(200).send(channels);
+    })
+};
+
+exports.getGroups = (req, res) => {
+  // Récupérer un groupe (+ de 2 personnes dans le channel)
+    Channel.findAll({
+      where: {
+        private: 0
+      }
+    })
+    .then(channels => {
+      if (!channels) {
+        return res.status(404).send({ message: "Aucun groupe n'a été trouvé." });
+      }
+        return res.status(200).send(channels);
+    })
+};
+
 
 exports.searchChannel = (req, res) => {
   // Recherche un channel dont le nom correspond au channelName passé dans le body

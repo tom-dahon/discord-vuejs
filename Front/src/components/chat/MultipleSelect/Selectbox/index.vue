@@ -18,13 +18,13 @@
       <ul class="items">
         <li class="item" v-for="(item, index) in data" :key="index">
           <input
-            :value="item.first_name"
+            :value="item.username"
             v-model="selectedItem"
             type="checkbox"
             :id="item.id"
             class="checkbox"
           />
-          <label :for="item.id"> {{ item.first_name }} </label>
+          <label :for="item.id"> {{ item.username }} </label>
         </li>
       </ul>
     </div>
@@ -34,6 +34,7 @@
 <script>
 import Input from "../Input/index.vue";
 import OpenIcon from "../Icons/OpenIcon.vue";
+import store from "@/store";
 export default {
   name: "GSelectBox",
   components: {
@@ -50,11 +51,19 @@ export default {
     return {
       showMenu: false,
       selectedItem: [],
+      usersId: []
     };
   },
   methods: {
     close(event) {
       if (!this.$el.contains(event.target)) this.showMenu = false;
+      this.data.forEach((user) => {
+        this.selectedItem.forEach((username) => {
+          if(username == user.username)
+            this.usersId.push(user.id)
+        })
+      })
+      store.commit("setSelectedItem", this.usersId)
     },
   },
   mounted() {

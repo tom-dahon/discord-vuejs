@@ -16,6 +16,16 @@ module.exports = function(app) {
     controller.getChannels
   );
 
+  app.get("/api/channels/privateChannels",
+  [authJwt.verifyToken],
+  controller.getPrivateChannels
+  );
+
+  app.get("/api/channels/groups",
+  [authJwt.verifyToken],
+  controller.getGroups
+  );
+
   app.get(
     "/api/channels/:channelId",
     [authJwt.verifyToken],
@@ -31,5 +41,7 @@ module.exports = function(app) {
   [authJwt.verifyToken],
   controller.searchChannel
   );
+
+
 
 };
