@@ -8,6 +8,9 @@ module.exports = (sequelize, Sequelize) => {
       name: {
         type: Sequelize.STRING
       },
+      private: {
+        type: Sequelize.INTEGER
+      }
     });
   
     return Channel;
