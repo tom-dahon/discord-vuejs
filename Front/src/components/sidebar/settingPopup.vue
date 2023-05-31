@@ -10,12 +10,12 @@
             </div>
             <div class="modal-body">
               <h2>Renommer le compte</h2>
-              <input type="text" class="form-control" aria-label="Text input with dropdown button" placeholder="Pseudo">
+              <input name="pseudo" type="text" class="form-control" aria-label="Text input with dropdown button" placeholder="Pseudo">
             </div>
             <div class="modal-body">
               <h2>Photo de profil</h2>
               <div class="custom-file">
-                <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                <input name="profilePicture" type="file" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
                 <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
               </div>
             </div>

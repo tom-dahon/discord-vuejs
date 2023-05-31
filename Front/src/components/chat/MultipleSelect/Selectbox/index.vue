@@ -65,7 +65,6 @@ export default {
           })
         })
         store.commit("setSelectedItem", this.usersId)
-        console.log(this.usersId)
       }
     },
   },

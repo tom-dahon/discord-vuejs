@@ -73,7 +73,12 @@
         </div>
         <div class="modal-body">
           <h2>Photo de profil</h2>
-          <input type="text" class="form-control" aria-label="Text input with dropdown button" placeholder="Pseudo">
+          <div class="custom-file">
+            <input accept="image/*" v-on:change="onFileChange" type="file" id="inputGroupFile01"
+              aria-describedby="inputGroupFileAddon01">
+            <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+            <button @click="upload">Sauvegarder</button>
+          </div>
         </div>
         <div class="modal-footer d-flex">
           <button type="button" class="btn btn-danger">Supprimer le compte</button>
@@ -92,6 +97,7 @@ import popupErreur from '@/components/chat/popupErreur.vue';
 import { faThumbsDown } from '@fortawesome/free-solid-svg-icons';
 import store from '../../store/index.js'
 import chat from '../../components/chat/chat.vue';
+import { getStorage, ref, uploadBytes } from "firebase/storage";
 //import settingPopup from './settingPopup.vue';
 
 export default {
@@ -106,9 +112,27 @@ export default {
       alerte: false,
       message: "",
       channels: null,
+      profilePicture: ""
     }
   },
   methods: {
+
+    onFileChange(e) {
+      const files = e.target.files || e.dataTransfer.files;
+      if (!files.length)
+        return;
+      this.profilePicture = files[0];
+    },
+
+    upload: function () {
+      const storage = getStorage()
+      const storageRef = ref(storage, 'test');
+
+      uploadBytes(storageRef, this.profilePicture).then((snapshot) => {
+        console.log('Uploaded a blob or file!');
+      });
+    },
+
     switchToPrivateChannels: function () {
       getPrivateChannels()
         .then(privateChannels => {
