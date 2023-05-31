@@ -48,6 +48,12 @@ module.exports = function(app) {
     controller.profilePicture
   );
 
+  app.get(
+    "/api/users/:userId",
+    [authJwt.verifyToken],
+    controller.getUser
+  );
+
   /*app.post(
     "/api/role",
     [authJwt.verifyToken],

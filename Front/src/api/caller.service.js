@@ -117,8 +117,24 @@ export async function sendMessage(id,text,userId) {
   return response.data;
 }
 
+//Users
+
 export async function getUsers(userId) {
   const response= await axiosIntance.get('/users/all/'+ userId)
+  return response.data;
+}
+
+export async function getUser(userId) {
+  const response= await axiosIntance.get('/users/'+ userId)
+  return response.data;
+}
+
+export async function setProfilePicture(userId, profilePicturePath) {
+  const requestBody = {
+    userId: userId,
+    profile_picture_path: profilePicturePath
+  }
+  const response= await axiosIntance.post('/users/profile_picture',requestBody)
   return response.data;
 }
 

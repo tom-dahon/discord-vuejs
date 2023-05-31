@@ -42,10 +42,10 @@
     <div class="sidebar__profile d-flex">
       <div>
         <span class="status"></span>
-        <img class="img-fluid" id="avatar" src="../../assets/avatar.png" alt="avatar" />
+        <img class="img-fluid" ref="avatar" id="avatar" :src="user?.profile_picture" alt="avatar" />
       </div>
       <div class="sidebar__profileInfo flex-fill position-relative p-3">
-        <h3 id="currentUsername"></h3>
+        <h4 id="currentUsername">{{ user?.username }}</h4>
         <p id="userTag"></p>
       </div>
       <div class="sidebar__profileIcons position-relative">
@@ -83,6 +83,7 @@
         <div class="modal-footer d-flex">
           <button type="button" class="btn btn-danger">Supprimer le compte</button>
           <button id="createChannelButton" type="button" class="btn btn-primary" data-bs-dismiss="modal">Valider</button>
+          <img id="myimg" src="" alt="">
         </div>
       </div>
     </div>
@@ -92,12 +93,12 @@
 
 <script>
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { getChannels, getGroups, getMessages, getPrivateChannels } from '@/api/caller.service';
+import { getChannels, getGroups, getMessages, getPrivateChannels, setProfilePicture, getUser } from '@/api/caller.service';
 import popupErreur from '@/components/chat/popupErreur.vue';
 import { faThumbsDown } from '@fortawesome/free-solid-svg-icons';
 import store from '../../store/index.js'
 import chat from '../../components/chat/chat.vue';
-import { getStorage, ref, uploadBytes } from "firebase/storage";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 //import settingPopup from './settingPopup.vue';
 
 export default {
@@ -112,25 +113,42 @@ export default {
       alerte: false,
       message: "",
       channels: null,
-      profilePicture: ""
+      profilePicture: "",
+      pictureName: "",
+      user: null,
     }
   },
   methods: {
 
     onFileChange(e) {
-      const files = e.target.files || e.dataTransfer.files;
+      const files = e.target.files || e.dataTransfer.files
       if (!files.length)
-        return;
-      this.profilePicture = files[0];
+        return
+      this.profilePicture = files[0]
+      this.pictureName = files[0].name
     },
 
     upload: function () {
       const storage = getStorage()
-      const storageRef = ref(storage, 'test');
-
+      const storageRef = ref(storage, localStorage.getItem("userId"));
       uploadBytes(storageRef, this.profilePicture).then((snapshot) => {
-        console.log('Uploaded a blob or file!');
+        console.log('Image envoyée !');
       });
+
+      getDownloadURL(ref(storage, localStorage.getItem("userId")))
+        .then((url) => {
+          setProfilePicture(localStorage.getItem("userId"), url)
+            .then((path) => {
+              console.log("dqsd")
+            })
+          this.$refs.avatar.src = url
+        })
+        .catch((error) => {
+          console.log(error)
+        });
+
+
+
     },
 
     switchToPrivateChannels: function () {
@@ -173,6 +191,15 @@ export default {
     },
   },
   mounted() {
+    getUser(localStorage.getItem("userId"))
+      .then(user => {
+        console.log(user)
+        this.user = user
+      })
+      .catch(error => {
+        console.log(error)
+      });
+
     getChannels(localStorage.getItem('username'))
       .then(data => {
         this.channels = data;

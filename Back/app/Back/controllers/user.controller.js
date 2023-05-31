@@ -42,14 +42,25 @@ exports.allUsers = (req, res) => {
 };
 
 exports.profilePicture = (req, res) => {
-  // Stocke le chemin de la photo de profil (non fonctionnel actuellement)
+  // Stocke le chemin de la photo de profil
   User.findByPk(req.body.userId)
     .then(user => {
 
       user.profile_picture = req.body.profile_picture_path;
       user.save();
       
-      return res.status(200).send(path);
+      return res.status(200).send(profile_picture_path);
+    })
+    .catch(err => {
+      console.log(err);
+});
+};
+
+exports.getUser = (req, res) => {
+  // Renvoie le user correspondant à l'id passé en paramètre
+  User.findByPk(req.params.userId)
+    .then(user => {
+      return res.status(200).send(user);
     })
     .catch(err => {
       console.log(err);
