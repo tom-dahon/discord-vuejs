@@ -1,4 +1,14 @@
 <template>
+  <div class="servers">
+    <div class="logo" @click="switchToPrivateChannels">
+      <span class="tooltiptext">Messages privés</span>
+      <img src="../../assets/discord2.png" alt="Discord" />
+    </div>
+    <div class="logo" @click="switchToGroups">
+      <span class="tooltiptext">Groupe</span>
+      <img src="../../assets/discord3.png" alt="Discord" />
+    </div>
+  </div>
   <div class="sidebar d-flex h-1 justify-content-between">
     <div class="input-group input-group-sm mt-1 p-2 ">
       <input type="text" class="form-control border-0 text-bg-dark" placeholder="Rechercher/Lancer une conversation"
@@ -77,7 +87,7 @@
 
 <script>
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { getChannels, getMessages } from '@/api/caller.service';
+import { getChannels, getGroups, getMessages, getPrivateChannels } from '@/api/caller.service';
 import popupErreur from '@/components/chat/popupErreur.vue';
 import { faThumbsDown } from '@fortawesome/free-solid-svg-icons';
 import store from '../../store/index.js'
@@ -99,29 +109,31 @@ export default {
     }
   },
   methods: {
+    switchToPrivateChannels: function () {
+      getPrivateChannels()
+        .then(privateChannels => {
+          this.channels = privateChannels
+          store.commit('setIdChannel', privateChannels[0].id)
+          store.commit('setNameChannel', privateChannels[0].name)
+        })
+      store.commit("setChannelType", "private")
+    },
+
+    switchToGroups: function () {
+      getGroups()
+        .then(groups => {
+          console.log(groups)
+          this.channels = groups
+          store.commit('setIdChannel', groups[0].id)
+          store.commit('setNameChannel', groups[0].name)
+        })
+      store.commit("setChannelType", "group")
+    },
+
     getMessage: function (name, id) {
       store.commit('setIdChannel', id)
       store.commit('setNameChannel', name)
       this.setStoreMessage(id)
-      // console.log(store.state.idChannel)
-      // console.log(store.state.nameChannel)
-
-
-      // this.$chat.$emit(getMessages(store.state.idChannel))
-      // this.$refs.chat.getMessages(store.state.idChannel);
-      // this.$root.$emit('component1') //like this
-      // this.$root.$refs.Chat.foo();
-      // component('Chat').c1method()//like this
-
-
-      // }
-      //   showAlerte(mess){
-      //     this.popupErreur.showAlerte()
-      //     document.getElementById("alerte").innerHTML = mess;
-      //     setTimeout(() => {
-      //       this.alerte = true;
-      //     }, 1000);
-      // },
     },
     setStoreMessage: function (id) {
       getMessages(id)
@@ -150,8 +162,7 @@ export default {
         //this.message = "Erreur lors de la récupération des channels";
         console.log(error);
       });
-      console.log(this.channels)
-  },
+  }
 }
 
 </script>
@@ -219,4 +230,5 @@ input {
 /* Popup */
 .button {
   background-color: red;
-}</style>
+}
+</style>

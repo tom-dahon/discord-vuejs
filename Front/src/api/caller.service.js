@@ -81,6 +81,16 @@ export async function getChannels(username) {
   return response.data;
 }
 
+export async function getPrivateChannels() {
+  const response= await axiosIntance.get('channels/privateChannels')
+  return response.data;
+}
+
+export async function getGroups() {
+  const response= await axiosIntance.get('channels/groups')
+  return response.data;
+}
+
 export async function createChannel(name, users, loggedUserId) {
   const requestBody = {
     name: name,

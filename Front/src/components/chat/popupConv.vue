@@ -61,9 +61,8 @@ import store from '../../store/index.js';
       };
     },
     mounted() {
-      getUsers(24)
+      getUsers(localStorage.getItem("userId"))
       .then(data => {
-        console.log(data)
         this.users = data;
       })
       .catch(error => {

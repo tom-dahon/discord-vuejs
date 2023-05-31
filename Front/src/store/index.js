@@ -8,7 +8,8 @@ const store = createStore({
         idChannel: null,
         nameChannel: null,
         message:[],
-        selectedItem:[]
+        selectedItem:[],
+        channeltype: ''
       }
     },
     mutations: {
@@ -33,6 +34,9 @@ const store = createStore({
       setSelectedItem (state, selectedItem) {
         state.selectedItem=selectedItem
       },
+      setChannelType(state, channelType) {
+        state.channeltype = channelType
+      }
     },
     getters: {
       getToken(state) {
@@ -58,6 +62,9 @@ const store = createStore({
       },
       getSelectedItem(state){
         return state.selectedItem
+      },
+      getChannelType(state) {
+        return state.channeltype
       }
       
     }
