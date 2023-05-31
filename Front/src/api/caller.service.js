@@ -76,15 +76,16 @@ export async function getConnexion(userData) {
 }
 
 //Channels
-export async function getChannels() {
-  const response= await axiosIntance.get('/channels')
+export async function getChannels(username) {
+  const response= await axiosIntance.get('channels/user/' + username)
   return response.data;
 }
 
-export async function createChannel(name, users) {
+export async function createChannel(name, users, loggedUserId) {
   const requestBody = {
     name: name,
-    users: users
+    users: users,
+    loggedUserId: loggedUserId
   }
 
   const response= await axiosIntance.post('/channels/createChannel', requestBody)

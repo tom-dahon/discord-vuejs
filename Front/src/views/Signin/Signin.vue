@@ -42,8 +42,8 @@
         .then(data => {
           if (data.status == 200) {
           localStorage.setItem('token', data.data.accessToken);
-          store.commit('setUsernameUser', data.data.username);
-          store.commit('setIdUser', data.data.id);
+          localStorage.setItem('username', data.data.username);
+          localStorage.setItem('userId', data.data.id);
           router.push('/chat');
             }
         })

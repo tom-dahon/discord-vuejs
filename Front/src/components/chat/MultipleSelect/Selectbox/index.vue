@@ -60,11 +60,12 @@ export default {
       if(this.data) {
         this.data.forEach((user) => {
           this.selectedItem.forEach((username) => {
-            if(username == user.username)
+            if(username == user.username && !this.usersId.includes(user.id))
               this.usersId.push(user.id)
           })
         })
         store.commit("setSelectedItem", this.usersId)
+        console.log(this.usersId)
       }
     },
   },

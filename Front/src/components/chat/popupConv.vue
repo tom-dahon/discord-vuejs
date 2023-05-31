@@ -39,7 +39,7 @@ import store from '../../store/index.js';
   export default {
   methods: {
     addChannel: function () {
-      createChannel(this.groupName, store.state.selectedItem)
+      createChannel(this.groupName, store.state.selectedItem, localStorage.getItem("userId"))
     .then(data => {
       console.log(data);
     })

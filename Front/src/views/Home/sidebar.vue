@@ -16,7 +16,6 @@
       <div class="sidebar__usersHeader justify-content-between">
         <div class="messagePrivee justify-content-between">
           <span class="messagePrive">MESSAGES PRIVÉS</span>
-
           <!-- <font-awesome-icon class="ms-5" size="md" icon="fa-solid fa-plus"/> -->
         </div>
 
@@ -138,7 +137,7 @@ export default {
     },
   },
   mounted() {
-    getChannels()
+    getChannels(localStorage.getItem('username'))
       .then(data => {
         this.channels = data;
         store.commit('setIdChannel', data[0].id);
@@ -151,6 +150,7 @@ export default {
         //this.message = "Erreur lors de la récupération des channels";
         console.log(error);
       });
+      console.log(this.channels)
   },
 }
 

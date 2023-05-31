@@ -11,7 +11,7 @@ module.exports = function(app) {
   });
 
   app.get(
-    "/api/channels",
+    "/api/channels/user/:username",
     [authJwt.verifyToken],
     controller.getChannels
   );

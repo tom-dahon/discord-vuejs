@@ -6,10 +6,12 @@ module.exports = (sequelize, Sequelize) => {
         autoIncrement: true
       },
       channelId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        unique: false
       },
       userId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        unique: false
       }
     });
   
