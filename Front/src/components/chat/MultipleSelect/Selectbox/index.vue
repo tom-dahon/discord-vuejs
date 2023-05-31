@@ -57,13 +57,15 @@ export default {
   methods: {
     close(event) {
       if (!this.$el.contains(event.target)) this.showMenu = false;
-      this.data.forEach((user) => {
-        this.selectedItem.forEach((username) => {
-          if(username == user.username)
-            this.usersId.push(user.id)
+      if(this.data) {
+        this.data.forEach((user) => {
+          this.selectedItem.forEach((username) => {
+            if(username == user.username)
+              this.usersId.push(user.id)
+          })
         })
-      })
-      store.commit("setSelectedItem", this.usersId)
+        store.commit("setSelectedItem", this.usersId)
+      }
     },
   },
   mounted() {

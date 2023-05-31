@@ -79,9 +79,11 @@ import { getMessages,getChannels,sendMessage } from '../../api/caller.service';
 import MessageComponent from './MessageComponent.vue'
 
 onMounted(() => {
-  setInterval(() => {
-    requestMessage(store.state.idChannel)
-  }, 6000)
+  if(store.state.idChannel) {
+    setInterval(() => {
+      requestMessage(store.state.idChannel)
+    }, 6000)
+  }
 })
 
 const visible = ref(false);
@@ -115,9 +117,6 @@ const requestMessage = (id) => {
     .then(data => {
       // console.log(data);
       store.commit('setMessage', data);
-      store.state.message.forEach(element => {
-        // console.log(element);
-      });
     })
     .catch(error => {
       console.log(error);

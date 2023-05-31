@@ -22,7 +22,7 @@
             </div>   
             
             <div>
-              <button @click="addChannel">Créer un channel</button>
+              <button data-bs-dismiss="modal" @click="addChannel">Créer un channel</button>
             </div>
         </div>
       </div>
