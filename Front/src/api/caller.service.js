@@ -108,10 +108,11 @@ export async function getMessages(id) {
   return response.data;
 }
 
-export async function sendMessage(id,text,userId) {
+export async function sendMessage(id,text,userId,imageMessage) {
   const requestBody = {
     text: text,
-    userId: userId
+    userId: userId,
+    imageMessage: imageMessage
   }
   const response= await axiosIntance.post('/channels/'+id+'/sendMessage',requestBody)
   return response.data;

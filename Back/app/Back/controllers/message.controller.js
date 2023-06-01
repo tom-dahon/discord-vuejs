@@ -24,7 +24,8 @@ exports.sendMessage = (req, res) => {
     Message.create({
         text: req.body.text,
         userId: req.body.userId,
-        channelId: req.params.channelId 
+        channelId: req.params.channelId,
+        image: req.body.imageMessage
     }).then(message => {
         return res.status(200).send(message);
     });

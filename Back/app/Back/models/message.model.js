@@ -13,6 +13,9 @@ module.exports = (sequelize, Sequelize) => {
       },
       channelId: {
         type: Sequelize.INTEGER
+      },
+      image: {
+        type: Sequelize.STRING
       }
     });
   

@@ -130,7 +130,7 @@ export default {
 
     upload: function () {
       const storage = getStorage()
-      let actualPath = ""
+
       const storageRef = ref(storage, localStorage.getItem("userId"));
       uploadBytes(storageRef, this.profilePicture).then((snapshot) => {
         console.log('Image envoyée !');

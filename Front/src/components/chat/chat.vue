@@ -1,5 +1,5 @@
 <template>
-  <sidebar/>
+  <sidebar />
   <div class="chat d-flex flex-column flex-grow-1 bd-highlight">
     <div class="chatHeader d-flex justify-content-between">
       <div class="chatHeader__left d-flex">
@@ -18,14 +18,17 @@
     <div class="d-flex flex-grow-1 bd-highlight">
       <div class="chat d-flex flex-grow-1 flex-column">
 
-        <div class="chat_message_scroll d-flex">
+        <div class="chat_message_scroll overflow-auto d-flex">
           <div class="chat__messages d-flex justify-content-start">
             <MessageComponent v-for="mess in messages" :key="mess" v-bind:text="mess" />
           </div>
         </div>
 
-        <div class="chat__input d-flex justify-content-end">
-          <font-awesome-icon class="plusInput fa-2xl" size="lg" icon="fa-solid fa-circle-plus" />
+        <div class="chat__input sticky-bottom d-flex justify-content-end">
+          <input v-on:change="onImageChange" type="file" class="d-none" id="pictureMessage">
+          <label for="pictureMessage">
+            <font-awesome-icon class="plusInput fa-2xl" size="lg" icon="fa-solid fa-circle-plus" />
+          </label>
           <input type="text" class="d-flex ms-2 bg-gradient-primary text-white" v-on:keyup.enter="envoieMessage"
             v-model="messagePlaceHolder" placeholder="Envoyer un message" />
         </div>
@@ -63,6 +66,7 @@ import sidebar from '../../views/Home/sidebar.vue'
 import store from '../../store/index.js'
 import { getMessages, getChannels, sendMessage, getPrivateChannels, getGroups } from '../../api/caller.service';
 import MessageComponent from './MessageComponent.vue'
+import { getDownloadURL, getStorage, uploadBytes, ref as fbRef } from 'firebase/storage'
 
 onMounted(() => {
   if (store.state.idChannel) {
@@ -78,12 +82,16 @@ const alerte = ref(false)
 const timer = ref(null)
 const messagePlaceHolder = ref(null)
 let channels = ref(null)
+let imageMessage = ""
 
-// const showAlerte = (mess) => {
-//   alerte.value = true;
-//   document.getElementById("alerte").innerHTML = mess;
-// };
+const onImageChange = (e) => {
+  const files = e.target.files || e.dataTransfer.files
+  if (!files.length)
+    return
 
+  imageMessage = files[0]
+  //imageName = files[0].name
+}
 
 
 const getChannel = () => {
@@ -113,14 +121,28 @@ const requestMessage = (id) => {
 };
 
 const envoieMessage = () => {
-  sendMessage(store.state.idChannel, messagePlaceHolder.value, store.state.idUser)
-    .then(data => {
-      requestMessage(store.state.idChannel)
-      this.messagePlaceHolder.value = ''
+  const uniqueName = Date.now()
+  const storage = getStorage()
+  const storageRef = fbRef(storage, 'messages/' + uniqueName)
+  uploadBytes(storageRef, imageMessage).then((snapshot) => {
+    console.log('Image envoyée !');
+  })
+  .then(() => {
+    getDownloadURL(fbRef(storage, 'messages/' + uniqueName))
+    .then((url) => {
+      sendMessage(store.state.idChannel, messagePlaceHolder.value, store.state.idUser, url)
+        .then(data => {
+          requestMessage(store.state.idChannel)
+          messagePlaceHolder.value = ''
+        })
     })
-    .catch(error => {
+    .catch((error) => {
       console.log(error)
     });
+  })
+
+  
+
 };
 
 const messages = computed(() => {
@@ -296,4 +318,5 @@ input {
   margin-top: 9%;
   margin-left: 8%;
   height: 33px;
-}</style>
+}
+</style>
