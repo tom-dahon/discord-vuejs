@@ -42,11 +42,10 @@
     <div class="sidebar__profile d-flex">
       <div>
         <span class="status"></span>
-        <img class="img-fluid" ref="avatar" id="avatar" :src="user?.profile_picture" alt="avatar" />
+        <img class="img-fluid rounded-circle" ref="avatar" id="avatar" :src="user?.profile_picture" alt="avatar" />
       </div>
-      <div class="sidebar__profileInfo flex-fill position-relative p-3">
-        <h4 id="currentUsername">{{ user?.username }}</h4>
-        <p id="userTag"></p>
+      <div class="sidebar__profileInfo flex-fill position-relative px-3">
+        <p class="text-white h6" id="currentUsername">{{ user?.username }}</p>
       </div>
       <div class="sidebar__profileIcons position-relative">
         <font-awesome-icon class="p-2" size="lg" icon="fa-solid fa-microphone" />
@@ -116,6 +115,7 @@ export default {
       profilePicture: "",
       pictureName: "",
       user: null,
+      actualProfilePicture: ""
     }
   },
   methods: {
@@ -130,10 +130,12 @@ export default {
 
     upload: function () {
       const storage = getStorage()
+      let actualPath = ""
       const storageRef = ref(storage, localStorage.getItem("userId"));
       uploadBytes(storageRef, this.profilePicture).then((snapshot) => {
         console.log('Image envoyée !');
       });
+      this.$refs.avatar.src = URL.createObjectURL(this.profilePicture)
 
       getDownloadURL(ref(storage, localStorage.getItem("userId")))
         .then((url) => {
@@ -141,13 +143,10 @@ export default {
             .then((path) => {
               console.log("dqsd")
             })
-          this.$refs.avatar.src = url
         })
         .catch((error) => {
           console.log(error)
         });
-
-
 
     },
 
@@ -213,7 +212,13 @@ export default {
         //this.message = "Erreur lors de la récupération des channels";
         console.log(error);
       });
-  }
+  },
+  computed: {
+    actualProfilePictureCompited() {
+      console.log(this.actualProfilePicture)
+      return this.actualProfilePicture;
+    },
+  },
 }
 
 </script>

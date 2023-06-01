@@ -9,7 +9,7 @@ const store = createStore({
         nameChannel: null,
         message:[],
         selectedItem:[],
-        channeltype: ''
+        channeltype: '',
       }
     },
     mutations: {
@@ -36,7 +36,7 @@ const store = createStore({
       },
       setChannelType(state, channelType) {
         state.channeltype = channelType
-      }
+      },
     },
     getters: {
       getToken(state) {
@@ -65,7 +65,7 @@ const store = createStore({
       },
       getChannelType(state) {
         return state.channeltype
-      }
+      },
       
     }
 
