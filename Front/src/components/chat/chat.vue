@@ -18,9 +18,9 @@
     <div class="d-flex flex-grow-1 bd-highlight">
       <div class="chat d-flex flex-grow-1 flex-column">
 
-        <div class="chat_message_scroll overflow-auto d-flex">
+        <div class="chat_message_scroll overflow-auto d-flex h-100">
           <div class="chat__messages d-flex justify-content-start">
-            <MessageComponent v-for="mess in messages" :key="mess" v-bind:text="mess" />
+            <MessageComponent v-if="messages.length" v-for="mess in messages" :key="mess" v-bind:text="mess" />
           </div>
         </div>
 
@@ -58,7 +58,6 @@
   <popupConv v-if="!visible" key="convPopup" />
 </template>
 <script setup>
-import data from './data.json'
 import { ref, onMounted, computed } from 'vue'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import popupConv from './popupConv.vue'
@@ -67,6 +66,7 @@ import store from '../../store/index.js'
 import { getMessages, getChannels, sendMessage, getPrivateChannels, getGroups } from '../../api/caller.service';
 import MessageComponent from './MessageComponent.vue'
 import { getDownloadURL, getStorage, uploadBytes, ref as fbRef } from 'firebase/storage'
+import router from '@/router'
 
 onMounted(() => {
   if (store.state.idChannel) {
@@ -83,6 +83,11 @@ const timer = ref(null)
 const messagePlaceHolder = ref(null)
 let channels = ref(null)
 let imageMessage = ""
+
+const logout = () => {
+  localStorage.clear()
+  router.push('/signin')
+}
 
 const onImageChange = (e) => {
   const files = e.target.files || e.dataTransfer.files
@@ -121,27 +126,35 @@ const requestMessage = (id) => {
 };
 
 const envoieMessage = () => {
-  const uniqueName = Date.now()
-  const storage = getStorage()
-  const storageRef = fbRef(storage, 'messages/' + uniqueName)
-  uploadBytes(storageRef, imageMessage).then((snapshot) => {
-    console.log('Image envoyée !');
-  })
-  .then(() => {
-    getDownloadURL(fbRef(storage, 'messages/' + uniqueName))
-    .then((url) => {
-      sendMessage(store.state.idChannel, messagePlaceHolder.value, store.state.idUser, url)
-        .then(data => {
-          requestMessage(store.state.idChannel)
-          messagePlaceHolder.value = ''
-        })
+  if (imageMessage) {
+    const uniqueName = Date.now()
+    const storage = getStorage()
+    const storageRef = fbRef(storage, 'messages/' + uniqueName)
+    uploadBytes(storageRef, imageMessage).then((snapshot) => {
+      console.log('Image envoyée !');
     })
-    .catch((error) => {
-      console.log(error)
-    });
-  })
+      .then(() => {
+        getDownloadURL(fbRef(storage, 'messages/' + uniqueName))
+          .then((url) => {
+            sendMessage(store.state.idChannel, messagePlaceHolder.value, localStorage.getItem("userId"), url)
+              .then(data => {
+                requestMessage(store.state.idChannel)
+                messagePlaceHolder.value = ''
+              })
+          })
+          .catch((error) => {
+            console.log(error)
+          });
+      })
+  } else {
+    sendMessage(store.state.idChannel, messagePlaceHolder.value, localStorage.getItem("userId"), "")
+      .then(data => {
+        requestMessage(store.state.idChannel)
+        messagePlaceHolder.value = ''
+      })
+  }
 
-  
+
 
 };
 
@@ -318,5 +331,19 @@ input {
   margin-top: 9%;
   margin-left: 8%;
   height: 33px;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.5);
 }
 </style>

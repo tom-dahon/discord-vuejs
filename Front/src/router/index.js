@@ -6,16 +6,26 @@ import Signup from '../views/Signup/Signup.vue';
 import store from '../store'
 import sidebar from '../views/Home/sidebar.vue'
 
+const ifAuthenticated = (to, from, next) => {
+  if (localStorage.getItem('token')) {
+    next()
+    return
+  }
+  router.push('/signin')
+ };
+
 const router = createRouter({
   history: createWebHistory(),
   routes: [
-    { 
+    {
       path: '/chat', 
-      component: Chat
+      component: Chat,
+      beforeEnter: ifAuthenticated,
     },
     { 
       path: '/chat/:id', 
-      component: Chat
+      component: Chat,
+      beforeEnter: ifAuthenticated,
     },
     {
       path: '/signin',
