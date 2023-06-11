@@ -15,26 +15,26 @@
       </div>
     </div>
 
+
     <div class="d-flex flex-grow-1 bd-highlight">
-      <div class="chat d-flex flex-grow-1 flex-column">
+      <section class="w-100">
 
-        <div class="chat_message_scroll overflow-auto d-flex h-100">
-          <div class="chat__messages d-flex justify-content-start">
-            <MessageComponent v-if="messages.length" v-for="mess in messages" :key="mess" v-bind:text="mess" />
-          </div>
+        <div ref="chatbox" class="overflow-auto mx-4" data-mdb-perfect-scrollbar="true" style="height:33%">
+          <MessageComponent v-if="messages.length" v-for="mess in messages" :key="mess" v-bind:text="mess" />
+         
         </div>
-
-        <div class="chat__input sticky-bottom d-flex justify-content-end">
+        <div class="text-muted d-flex justify-content-start align-items-center p-3">
           <input v-on:change="onImageChange" type="file" class="d-none" id="pictureMessage">
           <label for="pictureMessage">
             <font-awesome-icon class="plusInput fa-2xl" size="lg" icon="fa-solid fa-circle-plus" />
           </label>
           <input type="text" class="d-flex ms-2 bg-gradient-primary text-white" v-on:keyup.enter="envoieMessage"
             v-model="messagePlaceHolder" placeholder="Envoyer un message" />
+          <div class="cover-bar"></div>
         </div>
-        <div class="cover-bar"></div>
+       
+      </section>
 
-      </div>
 
       <div class="onlineTable d-flex flex-column">
         <span class="ms-2 text-light">En Ligne</span>
@@ -83,6 +83,8 @@ const timer = ref(null)
 const messagePlaceHolder = ref(null)
 let channels = ref(null)
 let imageMessage = ""
+const chatbox = ref(null)
+
 
 const logout = () => {
   localStorage.clear()
@@ -118,7 +120,8 @@ const requestMessage = (id) => {
   getMessages(id)
     .then(data => {
       // console.log(data);
-      store.commit('setMessage', data)
+      if(data != messages)
+        store.commit('setMessage', data)
     })
     .catch(error => {
       console.log(error)
@@ -159,6 +162,7 @@ const envoieMessage = () => {
 };
 
 const messages = computed(() => {
+  chatbox.scrollTop = chatbox.scrollHeight;
   return store.state.message
 });
 

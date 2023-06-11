@@ -1,30 +1,41 @@
 <template>
-  <div class="message">
-    <img class="picture" src="../../assets/avatar.png" alt="Gher slices">
-    <div class="message__info w-25">
-      <h4 class="text-light"><span>{{ user.username }}</span></h4>
-      <p class="text-light">{{ props.text.text }}</p>
-      <img v-if="props.text.image != ''" class="img-fluid" :src="props.text.image" alt="Chat Image">
-    </div>
+  <div class="d-flex justify-content-start">
+    <p class="small mb-1 text-white text-capitalize">{{ user.username }}</p>
+    <p class="small mb-1 text-muted px-2">{{  new Date(props.text.createdAt).toLocaleDateString("fr") + " " + new Date(props.text.createdAt).toLocaleTimeString("fr") }} </p>
   </div>
+  <div class="d-flex flex-row justify-content-start mb-2 pt-1">
+    <img class="justify content-start rounded-circle img-fluid" :src="user.profile_picture" alt="avatar 1" style="width: 40px;"/>
+    <div>
+      <p class="small p-2 ms-3 pt-6 rounded-3 text-white">
+        {{ props.text.text }}
+        <img v-if="props.text.image != ''" class="img-fluid" :src="props.text.image" alt="Chat Image"/>
+      </p>
+    </div>
+        
+      
+
+  </div>
+
+
+
 </template>
 
 <script setup>
 import { getUser } from '@/api/caller.service';
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 
 const props = defineProps({
   text: Object
 })
 
-let user = {}
+const user = ref({})
 onMounted(() => {
-  
-getUser(props.text.userId)
-  .then(userGet => {
-    console.log(userGet)
-    user = userGet
-  })
+
+  getUser(props.text.userId)
+    .then(userGet => {
+      console.log(userGet)
+      user.value = userGet
+    })
   console.log(user)
 })
 
