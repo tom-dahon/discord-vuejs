@@ -56,6 +56,20 @@ exports.profilePicture = (req, res) => {
 });
 };
 
+exports.updateUsername = (req, res) => {
+  // Met à jour le username du user passé en paramètre
+  User.findByPk(req.body.userId)
+    .then(user => {
+      user.username = req.body.username;
+      user.save();
+      
+      return res.status(200).send(req.body.username);
+    })
+    .catch(err => {
+      console.log(err);
+});
+}
+
 exports.getUser = (req, res) => {
   // Renvoie le user correspondant à l'id passé en paramètre
   User.findByPk(req.params.userId)

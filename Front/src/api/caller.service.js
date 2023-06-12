@@ -124,6 +124,16 @@ export async function setProfilePicture(userId, profilePicturePath) {
   return response.data;
 }
 
+export async function updateUsername(userId, username) {
+  const requestBody = {
+    userId: userId,
+    username: username
+  }
+  const response = await axiosIntance.post('/users/updateUsername',requestBody)
+  console.log(response.data)
+  return response.data;
+}
+
 export async function getUserRole(roleId) {
   const response = await axiosIntance.get('/users/role/'+roleId)
   return response.data

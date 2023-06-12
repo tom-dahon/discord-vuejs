@@ -49,7 +49,7 @@ exports.getChannels = (req, res) => {
   // Récupérer tous les channels auxquels l'utilisateur connecté a accès
     User.findOne({
     where: {
-      username: req.username
+      username: req.params.username
     }
   })
     .then(user => {

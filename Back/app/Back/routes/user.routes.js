@@ -48,6 +48,12 @@ module.exports = function(app) {
     controller.profilePicture
   );
 
+  app.post(
+    "/api/users/updateUsername",
+    [authJwt.verifyToken],
+    controller.updateUsername
+  );
+
   app.get(
     "/api/users/:userId",
     [authJwt.verifyToken],

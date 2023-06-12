@@ -1,6 +1,5 @@
 <template>
-
-    <div class="servers">
+  <div class="servers">
     <div class="logo" @click="switchToPrivateChannels">
       <span class="tooltiptext">Messages privés</span>
       <img src="../../assets/discord2.png" alt="Discord" />
@@ -69,7 +68,9 @@
         </div>
         <div class="modal-body">
           <h2>Renommer le compte</h2>
-          <input type="text" class="form-control" aria-label="Text input with dropdown button" placeholder="Pseudo">
+          <input v-model="usernameInput" type="text" class="form-control" aria-label="Text input with dropdown button"
+            placeholder="Pseudo">
+          <button @click="changeUsername">Renommer</button>
         </div>
         <div class="modal-body">
           <h2>Photo de profil</h2>
@@ -92,7 +93,7 @@
 
 <script>
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { getChannels, getGroups, getMessages, getPrivateChannels, setProfilePicture, getUser } from '@/api/caller.service';
+import { getChannels, getGroups, getMessages, getPrivateChannels, setProfilePicture, getUser, updateUsername } from '@/api/caller.service';
 import popupErreur from '@/components/chat/popupErreur.vue';
 import { faThumbsDown } from '@fortawesome/free-solid-svg-icons';
 import store from '../../store/index.js'
@@ -115,10 +116,22 @@ export default {
       profilePicture: "",
       pictureName: "",
       user: null,
-      actualProfilePicture: ""
+      actualProfilePicture: "",
+      usernameInput: ""
     }
   },
   methods: {
+
+    changeUsername() {
+      updateUsername(this.user.id, this.usernameInput)
+        .then(username => {
+          console.log(username)
+          localStorage.setItem('username', username);
+        })
+        .catch(error => {
+          console.log(error)
+        });
+    },
 
     onFileChange(e) {
       const files = e.target.files || e.dataTransfer.files
