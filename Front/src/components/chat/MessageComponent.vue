@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex justify-content-start">
-    <p class="small mb-1 text-white text-capitalize">{{ user.username }}</p>
+    <p class="small mb-1 text-white text-capitalize">{{ user.username }} <span class="text-danger">[{{ role.name }}]</span></p>
     <p class="small mb-1 text-muted px-2">{{  new Date(props.text.createdAt).toLocaleDateString("fr") + " " + new Date(props.text.createdAt).toLocaleTimeString("fr") }} </p>
   </div>
   <div class="d-flex flex-row justify-content-start mb-2 pt-1">
@@ -21,7 +21,7 @@
 </template>
 
 <script setup>
-import { getUser } from '@/api/caller.service';
+import { getUser, getUserRole } from '@/api/caller.service';
 import { onMounted, ref } from 'vue';
 
 const props = defineProps({
@@ -29,14 +29,19 @@ const props = defineProps({
 })
 
 const user = ref({})
+const role = ref({})
 onMounted(() => {
 
   getUser(props.text.userId)
     .then(userGet => {
-      console.log(userGet)
       user.value = userGet
+      getUserRole(userGet.roleId)
+      .then(roleGet => {
+        role.value = roleGet
+      })
     })
-  console.log(user)
+
+  
 })
 
 

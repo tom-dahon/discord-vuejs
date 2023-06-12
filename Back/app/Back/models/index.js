@@ -37,7 +37,7 @@ db.user.belongsToMany(db.channel, {
 });
 
 db.user.hasOne(db.role, {
-  foreignKey: "roleId"
+  foreignKey: "id"
 });
 
 db.ROLES = ["invite", "admin", "moderator"];

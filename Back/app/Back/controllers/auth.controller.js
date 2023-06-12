@@ -21,12 +21,11 @@ function validateEmail(email) {
 }
 
 exports.signup = (req, res) => {
-  if(validateEmail(req.body.email)) {
       User.create({
         username: req.body.username,
         email: req.body.email,
         password: bcrypt.hashSync(req.body.password, 8),
-        roleId: req.body.roleId
+        roleId: 1
       })
       .then(user => {
         let token = jwt.sign({ username: user.username }, config.secret, {
@@ -41,9 +40,6 @@ exports.signup = (req, res) => {
     .catch(err => {
       res.status(500).send({ message: err.message });
     });
-  } else {
-    res.status(422).send({message: "Format de l'email incorrect",});
-  }
     
 };
 

@@ -67,12 +67,12 @@ exports.getUser = (req, res) => {
 });
 };
 
-/*exports.getRole = (req, res) => {
-  Role.findByPk(req.body.roleId)
+exports.getRole = (req, res) => {
+  Role.findByPk(req.params.roleId)
   .then(role => {
     res.status(200).send(role);
   })
   .catch(err => {
     res.status(500).send({ message: err.message });
   });
-} */
+}

@@ -54,9 +54,9 @@ module.exports = function(app) {
     controller.getUser
   );
 
-  /*app.post(
-    "/api/role",
+  app.get(
+    "/api/users/role/:roleId",
     [authJwt.verifyToken],
     controller.getRole
-  ) */
+  );
 };

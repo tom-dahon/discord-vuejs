@@ -40,31 +40,6 @@ axiosIntance.interceptors.response.use(undefined, function (error) {
   }
 })
 
-// axiosIntance.interceptors.request.use(
-//   (config) => {
-//     const token = localStorage.getItem('token');
-//     if (token) {
-//       config.headers['x-access-token'] = `${token}`;
-//     }
-
-//     return config;
-//   },
-
-//   (error) => {
-//     return Promise.reject(error);
-//   }
-// );
-
-//User
-// export const getConnexion = (userData) => {
-//   const requestBody = {
-//     username: userData.username,
-//     password: userData.password
-//   };
-
-//   return apiService.post('/auth/signin', requestBody)
-//     .then(response => response.data);
-// };
 
 export async function getConnexion(userData) {
   const requestBody = {
@@ -72,6 +47,16 @@ export async function getConnexion(userData) {
     password: userData.password
   }
   const response = await axiosIntance.post('/auth/signin',requestBody);
+  return response;
+}
+
+export async function register(userData) {
+  const requestBody = {
+    username: userData.username,
+    email: userData.email,
+    password: userData.password
+  }
+  const response = await axiosIntance.post('/auth/signup',requestBody);
   return response;
 }
 
@@ -137,6 +122,11 @@ export async function setProfilePicture(userId, profilePicturePath) {
   }
   const response= await axiosIntance.post('/users/profile_picture',requestBody)
   return response.data;
+}
+
+export async function getUserRole(roleId) {
+  const response = await axiosIntance.get('/users/role/'+roleId)
+  return response.data
 }
 
 export default axiosIntance;

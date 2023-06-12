@@ -1,8 +1,10 @@
 <template>
-  <sidebar />
+  <sidebar v-if="sidebarVisible" />
+    
   <div class="chat d-flex flex-column flex-grow-1 bd-highlight">
     <div class="chatHeader d-flex justify-content-between">
       <div class="chatHeader__left d-flex">
+        <font-awesome-icon class="color fa-xl ms-3 mt-3" size="lg"  icon="fa-solid fa-chevron-left" @click="toggleSidebar()"/>
         <font-awesome-icon class="color fa-xl ms-3 mt-3" size="lg" color="grey" icon="fa-solid fa-at" />
         <h3 id="channelName" class="m-2 ms-3 text-light">{{ store.state.nameChannel }}</h3>
       </div>
@@ -36,22 +38,7 @@
       </section>
 
 
-      <div class="onlineTable d-flex flex-column">
-        <span class="ms-2 text-light">En Ligne</span>
-        <div class="enLigne">
-          <div class="online d-flex bd-highlight">
-            <img class="pictureOnline" src="../../assets/avatar.png" alt="Gher slices">
-            <p class="onlineText m-3">rsedtfyguhijok</p>>
-          </div>
-        </div>
-        <span class="ms-2 text-light text-sm">Hors Ligne</span>
-        <div class="horsLigne">
-          <div class="online d-flex bd-highlight">
-            <img class="pictureOnline" src="../../assets/avatar.png" alt="Gher slices">
-            <p class="onlineText m-3">rsedtfyguhijok</p>>
-          </div>
-        </div>
-      </div>
+   
     </div>
   </div>
 
@@ -77,6 +64,7 @@ onMounted(() => {
 })
 
 const visible = ref(false)
+const sidebarVisible = ref(true)
 const channelListe = ref(null)
 const alerte = ref(false)
 const timer = ref(null)
@@ -85,6 +73,9 @@ let channels = ref(null)
 let imageMessage = ""
 const chatbox = ref(null)
 
+const toggleSidebar = () => {
+  sidebarVisible.value = !sidebarVisible.value
+}
 
 const logout = () => {
   localStorage.clear()

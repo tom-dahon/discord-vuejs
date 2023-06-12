@@ -1,5 +1,6 @@
 <template>
-  <div class="servers">
+
+    <div class="servers">
     <div class="logo" @click="switchToPrivateChannels">
       <span class="tooltiptext">Messages privés</span>
       <img src="../../assets/discord2.png" alt="Discord" />
@@ -87,7 +88,6 @@
       </div>
     </div>
   </div>
-  <!--<popupErreur mess="" v-if="alerte"/>-->
 </template>
 
 <script>
