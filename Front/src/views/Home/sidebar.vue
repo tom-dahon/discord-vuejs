@@ -217,7 +217,6 @@ export default {
   mounted() {
     getUser(localStorage.getItem("userId"))
       .then(user => {
-        console.log(user)
         this.user = user
       })
       .catch(error => {

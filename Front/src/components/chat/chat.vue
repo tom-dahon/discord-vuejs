@@ -56,10 +56,11 @@ import { getDownloadURL, getStorage, uploadBytes, ref as fbRef } from 'firebase/
 import router from '@/router'
 
 onMounted(() => {
+  console.log(store.state.idChannel)
   if (store.state.idChannel) {
     setInterval(() => {
       requestMessage(store.state.idChannel)
-    }, 6000)
+    }, 2000)
   }
 })
 
