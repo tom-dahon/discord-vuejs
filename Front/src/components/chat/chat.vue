@@ -17,13 +17,13 @@
 
 
     <div class="d-flex flex-grow-1 bd-highlight">
-      <section class="w-100">
+      <section class="w-100 chat-container">
 
-        <div ref="chatbox" class="overflow-auto mx-4" data-mdb-perfect-scrollbar="true" style="height:33%">
+        <div ref="chatbox" class="overflow-auto mx-4 chat-body" data-mdb-perfect-scrollbar="true">
           <MessageComponent v-if="messages.length" v-for="mess in messages" :key="mess" v-bind:text="mess" />
          
         </div>
-        <div class="text-muted d-flex justify-content-start align-items-center p-3">
+        <div class="text-muted chat-foot d-flex justify-content-start align-items-center p-3">
           <input v-on:change="onImageChange" type="file" class="d-none" id="pictureMessage">
           <label for="pictureMessage">
             <font-awesome-icon class="plusInput fa-2xl" size="lg" icon="fa-solid fa-circle-plus" />
@@ -162,7 +162,6 @@ const envoieMessage = () => {
 };
 
 const messages = computed(() => {
-  chatbox.scrollTop = chatbox.scrollHeight;
   return store.state.message
 });
 
@@ -216,27 +215,38 @@ div.logo::before {
   background-color: #313338;
 }
 
-/* scroll */
-/* 
-.chat__messages::-webkit-scrollbar,
-.chat__messages::-webkit-scrollbar-thumb {
-  overflow:visible;
-  border-radius: 4px;
+.chat-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  padding-top: 5vh;
+  padding-bottom: 5vh;
+  box-sizing: border-box;
 }
-.chat__messages::-webkit-scrollbar-thumb {
-  background: rgba(0,0,0,.2); 
-}
-.cover-bar {
-  position: absolute;
-  background: #fff;;
-  height: 100%;  
+
+.chat-head {
+  background: red;
+  position: fixed;
   top: 0;
-  right: 0;
-  width: .4em;
-  -webkit-transition: all .5s;
-  opacity: 1;
+  width: 100%;
+  height: 5vh;
 }
-/* MAGIC HAPPENS HERE */
+
+.chat-body {
+  position: relative;
+  overflow-y: scroll;
+  padding-bottom: 50px;
+  height: 90vh;
+}
+
+.chat-foot {
+  background-color: #313338;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 5vh;
+}
+
 
 /* Message */
 .chat__messages {

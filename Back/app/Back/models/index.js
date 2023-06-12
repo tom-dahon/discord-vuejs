@@ -43,8 +43,3 @@ db.user.hasOne(db.role, {
 db.ROLES = ["invite", "admin", "moderator"];
 
 module.exports = db;
-
-
-// INSERT INTO `roles` (`id`, `name`, `createdAt`, `updatedAt`) VALUES ('1', 'user', '2022-12-11 20:24:50.000000', '2022-12-11 20:24:50.000000');
-// INSERT INTO `roles` (`id`, `name`, `createdAt`, `updatedAt`) VALUES ('2', 'admin', '2022-12-11 20:26:04.000000', '2022-12-11 20:26:04.000000');
-// INSERT INTO `roles` (`id`, `name`, `createdAt`, `updatedAt`) VALUES ('3', 'moderator', '2022-12-11 20:26:20.000000', '2022-12-11 20:26:20.000000');

@@ -45,17 +45,17 @@ require('./app/Back/routes/message.routes')(app);
 const PORT = process.env.PORT || 8083;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
-  /*Role.truncate();
-  Role.create({
+  db.role.truncate();
+  db.role.create({
     name: "invite"
   });
 
-  Role.create({
+  db.role.create({
     name: "moderator"
   });
   
-  Role.create({
+  db.role.create({
     name: "admin"
-  }) */
+  })
 });
 
