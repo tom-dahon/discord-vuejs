@@ -30,14 +30,26 @@ axiosIntance.interceptors.request.use(
 
 //redirect to login page if token expired
 axiosIntance.interceptors.response.use(undefined, function (error) {
+
   if (error) {
     const originalRequest = error.config;
     if (error.response.status === 401 && !originalRequest._retry) {
-  
         originalRequest._retry = true;
+        alert("Erreur 401, identifiant / mot de passe incorrect")
         return router.push('/signin')
+    } else if(error.response.status === 500 && !originalRequest._retry) {
+        originalRequest._retry = true;
+        alert("Erreur 500, erreur serveur")
+        localStorage.setItem("errorPopUp", {status: 500, message: "Erreur serveur"})
+    } else if(error.response.status === 400 && !originalRequest._retry) {
+      originalRequest._retry = true;
+      alert("Erreur 400, mauvaise requête")
+    } else if(error.response.status === 404 && !originalRequest._retry) {
+      originalRequest._retry = true;
+      alert("Erreur 404, utilisateur introuvable")
     }
   }
+    
 })
 
 
