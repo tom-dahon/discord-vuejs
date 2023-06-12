@@ -227,9 +227,11 @@ export default {
     getChannels(localStorage.getItem('username'))
       .then(data => {
         this.channels = data;
-        store.commit('setIdChannel', data[0].id);
-        store.commit('setNameChannel', data[0].name);
-        this.setStoreMessage(data[0].id);
+        if(data[0]) {
+          store.commit('setIdChannel', data[0].id);
+          store.commit('setNameChannel', data[0].name);
+          this.setStoreMessage(data[0].id);
+        }
       })
       .catch(error => {
         //this.alerte = true;

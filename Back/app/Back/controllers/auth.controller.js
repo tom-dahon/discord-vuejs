@@ -25,6 +25,7 @@ exports.signup = (req, res) => {
         username: req.body.username,
         email: req.body.email,
         password: bcrypt.hashSync(req.body.password, 8),
+        profile_picture: "https://firebasestorage.googleapis.com/v0/b/discord-vuejs.appspot.com/o/avatar.png?alt=media&token=eaf503ec-e2e4-4fbb-8a86-5de467e2f57c&_gl=1*1nkertj*_ga*MTQ5ODkyNDE3Ny4xNjgxOTc1NTU1*_ga_CW55HF8NVT*MTY4NjU4ODc0MC40LjEuMTY4NjU4ODc3NS4wLjAuMA..",
         roleId: 1
       })
       .then(user => {
@@ -33,6 +34,8 @@ exports.signup = (req, res) => {
         });
         res.status(200).send({
           id: user.id,
+          username: user.username,
+          email: user.email,
           message: "Utilisateur bien enregistré !",
           accessToken: token
         });
