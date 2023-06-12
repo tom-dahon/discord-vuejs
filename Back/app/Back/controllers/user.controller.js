@@ -70,6 +70,17 @@ exports.updateUsername = (req, res) => {
 });
 }
 
+exports.deleteUser = (req, res) => {
+  User.findByPk(req.params.userId)
+    .then(user => {
+      user.destroy()
+      return res.status(200).send("Utilisateur supprimé");
+    })
+    .catch(err => {
+      console.log(err);
+});
+}
+
 exports.getUser = (req, res) => {
   // Renvoie le user correspondant à l'id passé en paramètre
   User.findByPk(req.params.userId)

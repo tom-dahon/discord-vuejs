@@ -115,6 +115,11 @@ export async function getUser(userId) {
   return response.data;
 }
 
+export async function deleteUser(userId) {
+  const response= await axiosIntance.get('/users/delete/'+ userId)
+  return response.data;
+}
+
 export async function setProfilePicture(userId, profilePicturePath) {
   const requestBody = {
     userId: userId,

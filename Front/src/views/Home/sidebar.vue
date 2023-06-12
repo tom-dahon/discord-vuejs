@@ -82,7 +82,7 @@
           </div>
         </div>
         <div class="modal-footer d-flex">
-          <button type="button" class="btn btn-danger">Supprimer le compte</button>
+          <button type="button" class="btn btn-danger" @click="destroyAccount">Supprimer le compte</button>
           <button id="createChannelButton" type="button" class="btn btn-primary" data-bs-dismiss="modal">Valider</button>
           <img id="myimg" src="" alt="">
         </div>
@@ -93,12 +93,13 @@
 
 <script>
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { getChannels, getGroups, getMessages, getPrivateChannels, setProfilePicture, getUser, updateUsername } from '@/api/caller.service';
+import { getChannels, getGroups, getMessages, getPrivateChannels, setProfilePicture, getUser, updateUsername, deleteUser } from '@/api/caller.service';
 import popupErreur from '@/components/chat/popupErreur.vue';
 import { faThumbsDown } from '@fortawesome/free-solid-svg-icons';
 import store from '../../store/index.js'
 import chat from '../../components/chat/chat.vue';
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import router from '@/router';
 //import settingPopup from './settingPopup.vue';
 
 export default {
@@ -139,6 +140,17 @@ export default {
         return
       this.profilePicture = files[0]
       this.pictureName = files[0].name
+    },
+
+    destroyAccount() {
+      deleteUser(this.user.id)
+        .then(message => {
+          console.log(message)
+          router.push('/signup')
+        })
+        .catch(error => {
+          console.log(error)
+        });
     },
 
     upload: function () {
