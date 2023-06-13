@@ -6,9 +6,9 @@ DAHON TOM
 Afin de lancer le projet il faut effectuer les étapes suivantes en utilisant 2 invites de commandes :
 Dans le premier exécutez les commandes suivantes :
 
-cd Back
+``cd Back
 
-node server.js
+node server.js ``
 
 Si nodemon est installé :
 
