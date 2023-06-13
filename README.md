@@ -13,13 +13,14 @@ node server.js
 ```
 
 Si nodemon est installé :
-
+```
 nodemon server.js
-
+```
 Dans le deuxième terminal exécutez les commandes suivantes :
+```
 cd Front
 npm run serve
-
+```
 Ensuite dirigez vous vers l'URL localhost:8080/signin afin d'arriver sur la page de connexion de l'application.
 
 ### Développée avec les technologies suivantes
