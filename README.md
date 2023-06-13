@@ -3,7 +3,9 @@ DAHON TOM
 
 ## Comment lancer le projet
 En premier lieu il faut configurer le fichier Back/app/config/db.config.js :
+
 ![image](https://github.com/tom-dahon/discord-vuejs/assets/80258909/439a5519-0798-4061-b603-9ad865776666)
+
 Remplir le user et le password
 
 Afin de lancer le projet il faut effectuer les étapes suivantes en utilisant 2 invites de commandes :
