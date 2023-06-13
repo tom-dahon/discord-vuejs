@@ -5,9 +5,13 @@ DAHON TOM
 ## Comment lancer le projet
 Afin de lancer le projet il faut effectuer les étapes suivantes en utilisant 2 invites de commandes :
 Dans le premier exécutez les commandes suivantes :
+
 cd Back
+
 node server.js
+
 Si nodemon est installé :
+
 nodemon server.js
 
 Dans le deuxième terminal exécutez les commandes suivantes :
