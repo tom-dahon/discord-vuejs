@@ -8,6 +8,12 @@ Ensuite il faut configurer le fichier Back/app/Back/config/db.config.js :
 
 Remplir le user et le password
 
+Exécutez les commandes suivantes :
+```
+cd Front
+npm install
+```
+
 Afin de lancer le projet il faut effectuer les étapes suivantes en utilisant 2 invites de commandes :
 Dans le premier exécutez les commandes suivantes :
 
