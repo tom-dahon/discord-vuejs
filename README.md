@@ -33,6 +33,8 @@ npm run serve
 ```
 Ensuite dirigez vous vers l'URL localhost:8080/signin afin d'arriver sur la page de connexion de l'application ou localhost:8080/signup si vous n'avez pas encore de compte.
 
+Si le serveur est utilisé voici son IP : 217.160.195.38
+
 ### Application développée avec les technologies suivantes
 Nodejs - Express - Sequelize - Javascript - VueJS - HTML - CSS - Bootstrap
 
