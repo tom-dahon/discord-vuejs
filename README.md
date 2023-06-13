@@ -8,7 +8,6 @@ Dans le premier exécutez les commandes suivantes :
 
 ```
 cd Back
-
 node server.js
 ```
 
@@ -23,7 +22,7 @@ npm run serve
 ```
 Ensuite dirigez vous vers l'URL localhost:8080/signin afin d'arriver sur la page de connexion de l'application.
 
-### Développée avec les technologies suivantes
+### Application développée avec les technologies suivantes
 Nodejs - Express - Sequelize - Javascript - VueJS - HTML - CSS - Bootstrap
 
 Tom Dahon, Benjamin Ollier
