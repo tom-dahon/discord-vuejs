@@ -19,15 +19,10 @@ Dans le deuxième terminal exécutez les commandes suivantes :
 cd Front
 npm run serve
 ```
-Ensuite dirigez vous vers l'URL (localhost:8080/signin) afin d'arriver sur la page de connexion de l'application.
+Ensuite dirigez vous vers l'URL localhost:8080/signin afin d'arriver sur la page de connexion de l'application.
 
 ### Application développée avec les technologies suivantes
 Nodejs - Express - Sequelize - Javascript - VueJS - HTML - CSS - Bootstrap
 
 Tom Dahon, Benjamin Ollier
 
-<p align="center">
-  <img src="./images/1.png" width="500" title="hover text">
-  <img src="./images/2.png" width="500" alt="accessibility text">
-  <img src="./images/3.png" width="500" title="hover text">
-</p>
