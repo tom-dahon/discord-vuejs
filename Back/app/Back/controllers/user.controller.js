@@ -63,7 +63,7 @@ exports.updateUsername = (req, res) => {
       user.username = req.body.username;
       user.save();
       
-      return res.status(200).send(req.body.username);
+      return res.status(200).send(user);
     })
     .catch(err => {
       console.log(err);

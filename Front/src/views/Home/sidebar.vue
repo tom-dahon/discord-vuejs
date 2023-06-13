@@ -29,6 +29,7 @@
           <!-- <font-awesome-icon class="ms-5" size="md" icon="fa-solid fa-plus"/> -->
         </div>
 
+
         <div @click="getMessage(data.name, data.id)" class="sidebar__icon_conv" v-for="data of channels" :key=data>
           <router-link style="text-decoration: none; color: inherit;" :to="'/chat/' + data.id">
             <font-awesome-icon size="lg" icon="awesomeFake fa-solid fa-users" />
@@ -68,17 +69,17 @@
         </div>
         <div class="modal-body">
           <h2>Renommer le compte</h2>
-          <input v-model="usernameInput" type="text" class="form-control" aria-label="Text input with dropdown button"
+          <input v-model="usernameInput" type="text" class="form-control text-light" aria-label="Text input with dropdown button"
             placeholder="Pseudo">
-          <button @click="changeUsername">Renommer</button>
+          <button @click="changeUsername" class="btn btn-primary">Renommer</button>
         </div>
         <div class="modal-body">
           <h2>Photo de profil</h2>
           <div class="custom-file">
-            <input accept="image/*" v-on:change="onFileChange" type="file" id="inputGroupFile01"
+            <input accept="image/*" class="text-white" v-on:change="onFileChange" type="file" id="inputGroupFile01"
               aria-describedby="inputGroupFileAddon01">
-            <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-            <button @click="upload">Sauvegarder</button>
+            <label class="custom-file-label" for="inputGroupFile01">Choisir une image</label>
+            <button @click="upload" class="btn btn-primary">Sauvegarder</button>
           </div>
         </div>
         <div class="modal-footer d-flex">
@@ -125,9 +126,9 @@ export default {
 
     changeUsername() {
       updateUsername(this.user.id, this.usernameInput)
-        .then(username => {
-          console.log(username)
-          localStorage.setItem('username', username);
+        .then(user => {
+          this.user = user
+          localStorage.setItem('username', user.username);
         })
         .catch(error => {
           console.log(error)

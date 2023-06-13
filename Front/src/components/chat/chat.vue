@@ -54,13 +54,23 @@ import { getMessages, getChannels, sendMessage, getPrivateChannels, getGroups } 
 import MessageComponent from './MessageComponent.vue'
 import { getDownloadURL, getStorage, uploadBytes, ref as fbRef } from 'firebase/storage'
 import router from '@/router'
+import { useRoute } from 'vue-router'
 
 onMounted(() => {
-  console.log(store.state.idChannel)
-  if (store.state.idChannel) {
+  const route = useRoute()
+  if (route.params.id) {
     setInterval(() => {
-      requestMessage(store.state.idChannel)
-    }, 2000)
+      getMessages(route.params.id)
+    .then(data => {
+      if(store.state.message.length != data.length) {
+        requestMessage(store.state.idChannel)
+      }
+    })
+    .catch(error => {
+      console.log(error)
+    });
+    }, 500)
+    
   }
 })
 
@@ -149,7 +159,7 @@ const envoieMessage = () => {
       })
   }
 
-
+  imageMessage = ""
 
 };
 
