@@ -2,7 +2,9 @@ OLLIER Benjamin
 DAHON TOM
 
 ## Comment lancer le projet
-En premier lieu il faut configurer le fichier Back/app/config/db.config.js :
+En premier lieu, afin d'utiliser des bases de données MySQL, vous devez installer le logiciel WAMP pour Windows ou MAMP pour MAC, puis lancez WAMP/MAMP
+
+Ensuite il faut configurer le fichier Back/app/config/db.config.js :
 
 Remplir le user et le password
 
